@@ -1,6 +1,6 @@
 # configurator
 
->> Configure Central Services
+>Configure Central Services
 
 **install dkv**
 ```
