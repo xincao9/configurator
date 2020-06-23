@@ -125,7 +125,7 @@ func (c *Client) GetRealtime(key string) (*Result, error) {
 
 func (c *Client) GetOrRealtime(key string, realtime bool) (*Result, error) {
 	if key == "" {
-		return nil, errors.New("key not empty")
+		return nil, KeyNotEmpty
 	}
 	uri := c.masterUri
 	if realtime == false {
@@ -148,7 +148,7 @@ func (c *Client) GetOrRealtime(key string, realtime bool) (*Result, error) {
 
 func (c *Client) Delete(key string) (*Result, error) {
 	if key == "" {
-		return nil, errors.New("key not empty")
+		return nil, KeyNotEmpty
 	}
 	request, err := http.NewRequest(http.MethodDelete, fmt.Sprintf("%s/%s", c.masterUri, key), nil)
 	if err != nil {
