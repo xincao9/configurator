@@ -26,20 +26,21 @@ export slaves=""
 go get github.com/xincao9/configurator
 ```
 
-Get configuration properties
+**Get configuration properties**
 
 ```
 configurator.C.Get ("key") return interface{}
 ```
 
-Set the management endpoint
+**Set the management endpoint**
 
 ```
 http.HandleFunc("/config", configurator.AllSettings)
 http.ListenAndServe(":8080", nil)
 ```
 
-View the current running configuration
+**View the current running configuration**
+
 ```
 curl -X GET 'http://localhost:8080/config'
 ```
