@@ -25,7 +25,7 @@ func init() {
 	group = *flag.String("group", "", "group")
 	project = *flag.String("project", "", "project")
 	version = *flag.String("version", "", "version")
-	properties = *flag.String("properties", "", "properties")
+	properties = *flag.String("properties", "", "configuration properties")
 	if flag.Parsed() {
 		flag.Parse()
 	}

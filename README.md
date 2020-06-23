@@ -27,12 +27,30 @@ export slaves=""
 ```
 go get github.com/xincao9/configurator
 ```
+**Set configuration properties**
+
+```
+caoxindeMacBook-Air:configurator caoxin$ go run github.com/xincao9/configurator/cmd/main.go
+Usage of /var/folders/7y/0qk9vb817r7c9kr8_bjk7kym0000gn/T/go-build064844085/b001/exe/main:
+  -env string
+    	environment
+  -group string
+    	group
+  -master string
+    	dkv master address (default "localhost:9090")
+  -project string
+    	project
+  -properties string
+    	configuration properties
+  -version string
+    	version
+```
 
 **Get configuration properties**
 
 ```
-C.Get("redis.host")
-C.Get("redis.port")
+configurator.C.Get("redis.host")
+configurator.C.Get("redis.port")
 ```
 
 **Set the management endpoint**
