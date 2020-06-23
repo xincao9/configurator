@@ -15,6 +15,11 @@ var (
 	C *configurator
 )
 
+const (
+	infoKey       = "info"
+	propertiesKey = "properties"
+)
+
 func init() {
 	var err error
 	C, err = new()
@@ -120,19 +125,19 @@ func (c *configurator) AllSettings() map[string]interface{} {
 }
 
 func AllSettings(w http.ResponseWriter, _ *http.Request) {
-    m := make(map[string]interface{})
-    m["info"] = info.I
-    m["properties"] = C.AllSettings()
+	m := make(map[string]interface{})
+	m[infoKey] = info.I
+	m[propertiesKey] = C.AllSettings()
 	b, err := json.Marshal(m)
 	if err != nil {
 		io.WriteString(w, err.Error())
-        w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	_, err = w.Write(b)
 	if err != nil {
 		io.WriteString(w, err.Error())
-        w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 }
