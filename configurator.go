@@ -126,9 +126,9 @@ func (c *configurator) AllSettings() map[string]interface{} {
 
 func AllSettings(w http.ResponseWriter, _ *http.Request) {
 	m := make(map[string]interface{})
-	m[infoKey] = info.I
+	m[infoKey] = info.I.Map()
 	m[propertiesKey] = C.AllSettings()
-	b, err := json.Marshal(m)
+	b, err := json.MarshalIndent(m, "", "\t")
 	if err != nil {
 		io.WriteString(w, err.Error())
 		w.WriteHeader(http.StatusInternalServerError)

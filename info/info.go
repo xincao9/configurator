@@ -2,7 +2,6 @@ package info
 
 import (
 	"configurator/ms"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -107,7 +106,7 @@ func (inf *info) sync() error {
 	return nil
 }
 
-func (inf *info) string() string {
+func (inf *info) Map() map[string]interface{} {
 	m := make(map[string]interface{})
 	m[envKey] = inf.env
 	m[groupKey] = inf.group
@@ -116,6 +115,5 @@ func (inf *info) string() string {
 	m[masterKey] = inf.master
 	m[slavesKey] = inf.slaves
 	m[pathKey] = inf.Path
-	b, _ := json.Marshal(m)
-	return string(b)
+	return m
 }
