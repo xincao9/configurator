@@ -1,14 +1,16 @@
 # configurator
 
->Configure Central Services
+>Configuration Center Service
 
-**install dkv**
+**Install dkv**
+
 ```
 docker pull xincao9/dkv
 docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 ```
 
-**system env variable**
+**System environment variables**
+
 ```
 export env="test"
 export group="cbs"
@@ -18,10 +20,26 @@ export master="localhost:9090"
 export slaves=""
 ```
 
-**sdk**
+**Get the package**
 
 ```
 go get github.com/xincao9/configurator
+```
 
+Get configuration properties
+
+```
 configurator.C.Get ("key") return interface{}
+```
+
+Set the management endpoint
+
+```
+http.HandleFunc("/config", configurator.AllSettings)
+http.ListenAndServe(":8080", nil)
+```
+
+View the current running configuration
+```
+curl -X GET 'http://localhost:8080/config'
 ```
