@@ -13,17 +13,6 @@ docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"k":"configurator|test|cbs|user-service|1.0", "v":"{\"redis\":{\"host\":\"localhost\",\"port\":\"6379\"}}"}'
 ```
 
-**System environment variables**
-
-```
-export env="test"
-export group="cbs"
-export project="user-service"
-export version="1.0"
-export master="localhost:9090"
-export slaves=""
-```
-
 **Get the package**
 
 ```
@@ -46,6 +35,17 @@ Usage of /var/folders/7y/0qk9vb817r7c9kr8_bjk7kym0000gn/T/go-build064844085/b001
     	configuration properties
   -version string
     	version
+```
+
+**System environment variables**
+
+```
+export env="test"
+export group="cbs"
+export project="user-service"
+export version="1.0"
+export master="localhost:9090"
+export slaves=""
 ```
 
 **Get configuration properties**
