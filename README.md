@@ -62,6 +62,13 @@ http.HandleFunc("/config", configurator.AllSettings)
 http.ListenAndServe(":8080", nil)
 ```
 
+```
+r := gin.Default()
+r.GET("/config", func(c *gin.Context) {
+    c.JSON(http.StatusOK, configurator.C.AllSettings())
+})
+```
+
 **View the current running configuration**
 
 ```
