@@ -2,6 +2,8 @@
 
 >Configuration Center Service
 
+![architectures](https://raw.githubusercontent.com/xincao9/configurator/master/configurator.png)
+
 **Install dkv**
 
 ```
