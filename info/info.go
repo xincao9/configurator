@@ -2,6 +2,7 @@ package info
 
 import (
 	"configurator/ms"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -13,13 +14,14 @@ import (
 
 const (
 	FN         = "application"
-	Ext        = "yaml"
-	env        = "env"
-	group      = "group"
-	project    = "project"
-	version    = "version"
-	master     = "master"
-	slaves     = "slaves"
+	Ext        = "json"
+	envKey     = "env"
+	groupKey   = "group"
+	projectKey = "project"
+	versionKey = "version"
+	masterKey  = "master"
+	slavesKey  = "slaves"
+	pathKey    = "path"
 	path       = "HOME"
 	syncPeriod = 30
 )
@@ -53,15 +55,15 @@ func init() {
 
 func newInfo() (*info, error) {
 	inf := &info{}
-	inf.env = os.Getenv(env)
-	inf.group = os.Getenv(group)
-	inf.project = os.Getenv(project)
-	inf.version = os.Getenv(version)
-	inf.master = os.Getenv(master)
+	inf.env = os.Getenv(envKey)
+	inf.group = os.Getenv(groupKey)
+	inf.project = os.Getenv(projectKey)
+	inf.version = os.Getenv(versionKey)
+	inf.master = os.Getenv(masterKey)
 	inf.Path = os.Getenv(path)
 	var err error
-	if os.Getenv(slaves) != "" {
-		inf.slaves = strings.Split(os.Getenv(slaves), ",")
+	if os.Getenv(slavesKey) != "" {
+		inf.slaves = strings.Split(os.Getenv(slavesKey), ",")
 		inf.client, err = ms.NewMS(inf.master, inf.slaves, time.Second)
 	} else {
 		inf.client, err = ms.New(inf.master, time.Second)
@@ -86,7 +88,7 @@ func (inf *info) key() string {
 
 func (inf *info) sync() error {
 	k := inf.key()
-	r, err := inf.client.Get(k)
+	r, err := inf.client.GetOrRealtime(k, true)
 	if err != nil {
 		return err
 	}
@@ -103,4 +105,17 @@ func (inf *info) sync() error {
 		return err
 	}
 	return nil
+}
+
+func (inf *info) string() string {
+	m := make(map[string]interface{})
+	m[envKey] = inf.env
+	m[groupKey] = inf.group
+	m[projectKey] = inf.project
+	m[versionKey] = inf.version
+	m[masterKey] = inf.master
+	m[slavesKey] = inf.slaves
+	m[pathKey] = inf.Path
+	b, _ := json.Marshal(m)
+	return string(b)
 }
