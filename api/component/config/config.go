@@ -23,6 +23,7 @@ func init() {
 	}
 	C.SetConfigType("yaml")
 	C.AddConfigPath("./resources/conf")
+    C.AddConfigPath("/usr/local/configurator-api/conf/")
 	C.SetDefault("logger.dir", "/tmp/logs")
 	C.SetDefault("logger.level", "debug")
 	C.SetDefault("logger.filename", "configurator-api.log")
