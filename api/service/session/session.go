@@ -3,6 +3,8 @@ package session
 import (
     "configurator/api/component/db"
     "configurator/api/model/session"
+    "crypto/md5"
+    "encoding/hex"
     "fmt"
     "github.com/jinzhu/gorm"
 )
@@ -32,8 +34,11 @@ func (ss *sessionService) Login(s *session.Session) error {
     if os == nil {
         return fmt.Errorf("用户 %s 不存在", u)
     }
+    h := md5.New()
+    h.Write([]byte(s.Password))
+    s.Password = hex.EncodeToString(h.Sum(nil))
     if os.Password != s.Password {
-        return fmt.Errorf("用户 %s 输入密码不正确", u)
+        return fmt.Errorf("用户 %s 密码不正确", u)
     }
 	return nil
 }
@@ -45,6 +50,10 @@ func (ss *sessionService) Save(s *session.Session) error {
 		return err
 	}
 	if os == nil { // 第一次登录
+        h := md5.New()
+        h.Write([]byte(s.Password))
+        p := hex.EncodeToString(h.Sum(nil))
+	    s.Password = p
 		return ss.o.Save(s).Error
 	}
 	s.Id = os.Id
