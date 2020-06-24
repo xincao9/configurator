@@ -37,7 +37,7 @@ func main() {
     engine.Static("/css", "./assets/css")
     engine.Static("/img", "./assets/img")
     engine.GET("/", func(c *gin.Context) {
-        c.Redirect(http.StatusFound, "/assets")
+       c.Redirect(http.StatusFound, "/assets")
     })
     addr := fmt.Sprintf(":%d", config.C.GetInt("server.port"))
     logger.L.Infof("Listening and serving HTTP on : %s", addr)

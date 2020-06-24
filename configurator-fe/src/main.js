@@ -13,21 +13,21 @@ Vue.use(Antd);
 
 axios.defaults.timeout = 5000;
 axios.defaults.baseURL = process.env.API_URL || 'http://localhost:8080';
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 
-axios.interceptors.response.use(function(response) {
-	if (response.status != 200 || response.data.code == 401) {
-		router.push({
-			path: "/"
-		});
-		return Promise.reject(response);
-	}
-	return response;
-}, function(error) {
-	return Promise.reject(error);
+axios.interceptors.response.use(function (response) {
+    if (response.status != 200 || response.data.code == 401) {
+        router.push({
+            path: "/"
+        });
+        return Promise.reject(response);
+    }
+    return response;
+}, function (error) {
+    return Promise.reject(error);
 });
 
 new Vue({
-	router,
-	render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount('#app');
