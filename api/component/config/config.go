@@ -22,7 +22,7 @@ func init() {
 		C.SetConfigName(fmt.Sprintf("config-%s", Env))
 	}
 	C.SetConfigType("yaml")
-	C.AddConfigPath("./conf")
+	C.AddConfigPath("./resources/conf")
 	C.SetDefault("logger.dir", "/tmp/logs")
 	C.SetDefault("logger.level", "debug")
 	C.SetDefault("logger.filename", "configurator-api.log")
