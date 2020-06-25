@@ -1,6 +1,6 @@
 # configurator
 
->Configuration Center Service
+>Configuration Center Service Applicable to, need to support multi-environment, multi-version, multi-application centralized configuration
 
 ![architectures](https://raw.githubusercontent.com/xincao9/configurator/master/configurator.png)
 
