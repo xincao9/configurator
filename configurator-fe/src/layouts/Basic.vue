@@ -85,7 +85,6 @@
             },
             onSync: function () {
                 let path = this.$route.path;
-                console.log(path);
                 if (path != null && path.length > 0) {
                     let ss = path.split('/');
                     if (ss != null && ss.length > 2) {

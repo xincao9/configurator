@@ -1,6 +1,6 @@
 <template>
     <a-table :columns="columns" :dataSource="data">
-        <a slot="name" slot-scope="text">{{text}}</a>
+        <a slot="properties" slot-scope="record" @click="showProperties (record.id)">查看</a>
     </a-table>
 </template>
 
@@ -11,6 +11,12 @@
 
     const Apps = resource("/apps", axios);
     const columns = [
+        {
+            title: '主键',
+            dataIndex: 'id',
+            key: 'id',
+            ellipsis: true,
+        },
         {
             title: '环境',
             dataIndex: 'env',
@@ -37,9 +43,9 @@
         },
         {
             title: '属性',
-            dataIndex: 'properties',
             key: 'properties',
             ellipsis: true,
+            scopedSlots: {customRender: 'properties'},
         }
     ];
 
@@ -50,7 +56,7 @@
         data() {
             return {
                 data: null,
-                columns
+                columns,
             };
         },
         methods: {
@@ -61,7 +67,10 @@
                         _this.data = res.data.data;
                     }
                 })
-            }
+            },
+            showProperties(data) {
+                console.log(data);
+            },
         },
         name: "PagesConfiguratorManagerList",
         components: {}

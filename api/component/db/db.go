@@ -9,21 +9,21 @@ import (
 )
 
 var (
-	O *gorm.DB
+    O *gorm.DB
 )
 
 func init() {
-	var err error
-	O, err = gorm.Open("mysql", config.C.GetString("db.dataSourceName"))
-	if err != nil {
-		logger.L.Fatalf("Fatal error db: %v\n", err)
-	}
-	O.SingularTable(true)
+    var err error
+    O, err = gorm.Open("mysql", config.C.GetString("db.dataSourceName"))
+    if err != nil {
+        logger.L.Fatalf("Fatal error db: %v\n", err)
+    }
+    O.SingularTable(true)
 }
 
 type Model struct {
-	Id        int64      `gorm:"primary_key"`
-	CreatedAt time.Time  `gorm:"column:created_at"`
-	UpdatedAt time.Time  `gorm:"column:updated_at"`
-	DeletedAt *time.Time `gorm:"column:deleted_at"`
+    Id        int64      `json:"id" gorm:"primary_key"`
+    CreatedAt time.Time  `json:"created_at" gorm:"column:created_at"`
+    UpdatedAt time.Time  `json:"updated_at" gorm:"column:updated_at"`
+    DeletedAt *time.Time `json:"deleted_at" gorm:"column:deleted_at"`
 }
