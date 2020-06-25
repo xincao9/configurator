@@ -2,6 +2,7 @@
 
 > configurator-ui
 
+![fe](https://raw.githubusercontent.com/xincao9/configurator/master/api/resources/doc/configurator-ui.png)
 
 
 **Install configurator-ui**
