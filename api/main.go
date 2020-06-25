@@ -3,7 +3,8 @@ package main
 import (
     "configurator/api/component/config"
     "configurator/api/component/logger"
-    "configurator/api/controller/session"
+    "configurator/api/controller/accont"
+    "configurator/api/controller/app"
     "configurator/api/middleware/authentication"
     "fmt"
     "github.com/gin-gonic/gin"
@@ -29,9 +30,10 @@ func main() {
         AllowedHeaders:   []string{"*"},
         AllowCredentials: true,
     }))
-    session.Route(engine)
+    accont.Route(engine)
     authorized := engine.Group("/", authentication.Authentication)
-    session.AuthenticationRoute(authorized)
+    accont.AuthenticationRoute(authorized)
+    app.Route(authorized)
     engine.Static("/assets", "/usr/local/configurator-api/assets")
     engine.Static("/js", "/usr/local/configurator-api/assets/js")
     engine.Static("/css", "/usr/local/configurator-api/assets/css")

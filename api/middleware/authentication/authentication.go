@@ -3,7 +3,7 @@ package authentication
 import (
     "configurator/api/component/util"
     "configurator/api/constant"
-    sessionService "configurator/api/service/session"
+    accountService "configurator/api/service/account"
     "github.com/gin-gonic/gin"
     "net/http"
     "time"
@@ -16,11 +16,11 @@ func Authentication(c *gin.Context) {
 		util.RenderJSON(c, http.StatusBadRequest, "请求必须携带token")
 		return
 	}
-	s, err := sessionService.S.GetSessionByToken(t)
-	if err != nil || s == nil || s.Expire.Before(time.Now()) { // 会话对象是否过期
+	a, err := accountService.A.GetAccountByToken(t)
+	if err != nil || a == nil || a.Expire.Before(time.Now()) { // 会话对象是否过期
 		c.Abort()
 		util.RenderJSON(c, http.StatusBadRequest, " 会话过期")
 		return
 	}
-	c.Set(constant.Session, s) // 设置本地会话
+	c.Set(constant.SessionAccount, a) // 设置本地会话
 }

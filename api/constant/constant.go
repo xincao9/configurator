@@ -1,5 +1,5 @@
 package constant
 
 const (
-	Session         = "SESSION"
+	SessionAccount = "S_ACCOUNT"
 )

@@ -14,8 +14,8 @@
                         :defaultOpenKeys="[openKeys]" :style="{ height: '100%', borderRight: 0 }" @click="siderClick">
                     <a-sub-menu key="manager">
 						<span slot="title">
-							<a-icon type="file"/>管理</span>
-                        <a-menu-item key=":pages:configurator:manager:list">列表</a-menu-item>
+							<a-icon type="user"/>管理</span>
+                        <a-menu-item key=":pages:configurator:manager:list"><a-icon type="unordered-list"/>列表</a-menu-item>
                     </a-sub-menu>
                 </a-menu>
             </a-layout-sider>

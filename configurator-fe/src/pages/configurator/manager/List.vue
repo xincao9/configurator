@@ -9,7 +9,7 @@
     import resource from "resource-axios";
     import axios from "axios";
 
-    const Configurators = resource("/configurators", axios);
+    const Apps = resource("/apps", axios);
     const columns = [
         {
             title: '环境',
@@ -45,7 +45,7 @@
 
     export default {
         mounted() {
-            this.getConfigurators();
+            this.getApps();
         },
         data() {
             return {
@@ -54,9 +54,9 @@
             };
         },
         methods: {
-            getConfigurators() {
+            getApps() {
                 let _this = this;
-                Configurators.get().then(function (res) {
+                Apps.get().then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
                         _this.data = res.data.data;
                     }
