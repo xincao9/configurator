@@ -2,8 +2,7 @@
     <a-layout id="layout_basic">
         <a-layout-header class="header">
             <div class="logo"/>
-            <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]" :style="{ lineHeight: '64px' }"
-                    @click="click">
+            <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]" :style="{ lineHeight: '64px' }" @click="click">
                 <a-menu-item key="configurator">配置</a-menu-item>
             </a-menu>
         </a-layout-header>

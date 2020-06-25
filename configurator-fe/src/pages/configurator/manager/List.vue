@@ -8,7 +8,11 @@
             />
         </a-modal>
         <a-table :columns="columns" :dataSource="data">
-            <a slot="properties" slot-scope="record" @click="showProperties(record)">查看</a>
+            <span slot="properties" slot-scope="record">
+                <a-button @click="showProperties(record)">查看</a-button>
+                <a-divider type="vertical"/>
+                <a-button @click="deleteApp(record)">删除</a-button>
+            </span>
         </a-table>
     </div>
 </template>
@@ -101,10 +105,28 @@
                     App.savePropertiesById(_this.appId, _this.properties).then(function (res) {
                         if (res.status == 200 && res.data.code == 200) {
                             _this.visible = false;
+                            _this.properties = null;
+                            _this.appId = 0;
                         }
                     });
                 }
             },
+            deleteApp(app) {
+                let _this = this;
+                _this.$confirm({
+                    title: '提醒',
+                    content: '确认删除吗?',
+                    okText: '确认',
+                    cancelText: '取消',
+                    onOk: function () {
+                        App.delete(app.id).then(function (res) {
+                            if (res.status == 200 && res.data.code == 200) {
+                                _this.getApps();
+                            }
+                        });
+                    }
+                });
+            }
         },
         name: "PagesConfiguratorManagerList",
         components: {}
