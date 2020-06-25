@@ -4,6 +4,9 @@
 
 ![architectures](https://raw.githubusercontent.com/xincao9/configurator/master/configurator.png)
 
+
+## Configurator Middleware Install
+
 **Install dkv**
 
 ```
@@ -13,18 +16,14 @@ docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"k":"configurator|test|cbs|user-service|1.0", "v":"{\"redis\":{\"host\":\"localhost\",\"port\":\"6379\"}}"}'
 ```
 
-**Get the package**
-
-```
-go get github.com/xincao9/configurator
-```
 **Set configuration properties**
 
 It is recommended to use [configurator-ui](https://github.com/xincao9/configurator/tree/master/api) to manage configuration
 
 ```
 #The following is set through the command line
-
+git clone https://github.com/xincao9/configurator.git
+cd configurator
 install: make install
 exec: configurator-cli
   -env string
@@ -41,6 +40,13 @@ exec: configurator-cli
     	version
 ```
 
+## SDK Use 
+
+**Get the package**
+
+```
+go get github.com/xincao9/configurator
+```
 
 **System environment variables**
 
