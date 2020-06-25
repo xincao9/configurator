@@ -16,6 +16,7 @@
 						<span slot="title">
 							<a-icon type="user"/>管理</span>
                         <a-menu-item key=":pages:configurator:manager:list"><a-icon type="unordered-list"/>列表</a-menu-item>
+						<a-menu-item key=":pages:configurator:manager:save"><a-icon type="save"/>保存</a-menu-item>
                     </a-sub-menu>
                 </a-menu>
             </a-layout-sider>
@@ -37,6 +38,7 @@
         ['configurator']: '配置',
         ['manager']: '管理',
         [':pages:configurator:manager:list']: '列表',
+		[':pages:configurator:manager:save']: '保存',
     }
     export default {
         created() {
