@@ -1,7 +1,16 @@
 <template>
-    <a-table :columns="columns" :dataSource="data">
-        <a slot="properties" slot-scope="record" @click="showProperties (record.id)">查看</a>
-    </a-table>
+    <div>
+        <a-modal v-model="visible" title="配置属性" @ok="handleOk" ok-text="确认" cancel-text="取消">
+            <a-textarea
+                v-model="properties"
+                placeholder="json串"
+                :auto-size="{ minRows: 3, maxRows: 5 }"
+            />
+        </a-modal>
+        <a-table :columns="columns" :dataSource="data">
+            <a slot="properties" slot-scope="record" @click="showProperties(record)">查看</a>
+        </a-table>
+    </div>
 </template>
 
 <script>
@@ -10,6 +19,11 @@
     import axios from "axios";
 
     const Apps = resource("/apps", axios);
+    const App = resource("/app", {
+        getPropertiesById: (id) => axios.get(`/app/${id}/properties`),
+        savePropertiesById: (id, props) => axios.put(`/app/${id}/properties`, props),
+    }, axios);
+
     const columns = [
         {
             title: '主键',
@@ -57,6 +71,9 @@
             return {
                 data: null,
                 columns,
+                visible: false,
+                properties: null,
+                appId: 0,
             };
         },
         methods: {
@@ -68,8 +85,25 @@
                     }
                 })
             },
-            showProperties(data) {
-                console.log(data);
+            showProperties(app) {
+                let _this = this;
+                _this.appId = app.id;
+                App.getPropertiesById(app.id).then(function (res) {
+                    if (res.status == 200 && res.data.code == 200) {
+                        _this.properties = res.data.data;
+                    }
+                });
+                this.visible = true;
+            },
+            handleOk() {
+                let _this = this;
+                if (this.properties != null) {
+                    App.savePropertiesById(_this.appId, _this.properties).then(function (res) {
+                        if (res.status == 200 && res.data.code == 200) {
+                            _this.visible = false;
+                        }
+                    });
+                }
             },
         },
         name: "PagesConfiguratorManagerList",

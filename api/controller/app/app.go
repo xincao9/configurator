@@ -4,6 +4,7 @@ import (
     "configurator/api/component/util"
     "configurator/api/model/app"
     appService "configurator/api/service/app"
+    "encoding/json"
     "github.com/gin-gonic/gin"
     "net/http"
     "strconv"
@@ -68,5 +69,50 @@ func Route(engine *gin.RouterGroup) {
             return
         }
         util.RenderJSON(c, http.StatusOK, "成功")
+    })
+    engine.GET("/app/:id/properties", func(c *gin.Context) {
+        n := c.Param("id")
+        if n == "" {
+            util.RenderJSON(c, http.StatusBadRequest, "id is required")
+            return
+        }
+        id, err := strconv.ParseInt(n, 10, 64)
+        if err != nil {
+            util.RenderJSON(c, http.StatusBadRequest, err.Error())
+            return
+        }
+        properties, err := appService.A.GetPropertiesById(id)
+        if err != nil {
+            util.RenderJSON(c, http.StatusInternalServerError, err.Error())
+            return
+        }
+        util.RenderJSONDetail(c, http.StatusOK, "成功", properties)
+    })
+    engine.PUT("/app/:id/properties", func(c *gin.Context) {
+        n := c.Param("id")
+        if n == "" {
+            util.RenderJSON(c, http.StatusBadRequest, "id is required")
+            return
+        }
+        id, err := strconv.ParseInt(n, 10, 64)
+        if err != nil {
+            util.RenderJSON(c, http.StatusBadRequest, err.Error())
+            return
+        }
+        var m map[string]interface{}
+        if err := c.ShouldBindJSON(&m); err != nil {
+            util.RenderJSON(c, http.StatusBadRequest, err.Error())
+            return
+        }
+        d, err := json.Marshal(m)
+        if err != nil {
+            util.RenderJSON(c, http.StatusBadRequest, err.Error())
+        }
+        props, err := appService.A.SavePropertiesById(id, string(d))
+        if err != nil {
+            util.RenderJSON(c, http.StatusInternalServerError, err.Error())
+            return
+        }
+        util.RenderJSONDetail(c, http.StatusOK, "成功", props)
     })
 }
