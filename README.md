@@ -20,7 +20,11 @@ go get github.com/xincao9/configurator
 ```
 **Set configuration properties**
 
+It is recommended to use configurator-ui to manage configuration
+
 ```
+#The following is set through the command line
+
 install: make install
 exec: configurator-cli
   -env string
@@ -36,6 +40,7 @@ exec: configurator-cli
   -version string
     	version
 ```
+
 
 **System environment variables**
 
