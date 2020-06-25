@@ -8,4 +8,4 @@ docker:
 	docker build . -t configurator:latest
 
 install:build
-	mv configurator-cli /usr/local/
+	mv configurator-cli /usr/local/bin/
