@@ -20,7 +20,7 @@ go get github.com/xincao9/configurator
 ```
 **Set configuration properties**
 
-It is recommended to use configurator-ui to manage configuration
+It is recommended to use [configurator-ui](https://github.com/xincao9/configurator/tree/master/api) to manage configuration
 
 ```
 #The following is set through the command line
