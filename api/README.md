@@ -28,8 +28,8 @@ conf: /usr/local/configurator-api/conf/configurator-api.yaml
 
 **Configuration file**
 
-[schema](https://github.com/xincao9/configurator/blob/master/api/resources/doc/schema.sql)
-
+* [schema](https://github.com/xincao9/configurator/blob/master/api/resources/doc/schema.sql)
+* [data](https://github.com/xincao9/configurator/blob/master/api/resources/doc/data.sql)
 ```
 db:
     datasourcename: root:asdf@tcp(localhost:3306)/configurator?charset=utf8&parseTime=true
