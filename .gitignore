@@ -1,4 +1,4 @@
  .DS_Store
 .idea
-configurator-fe/node_modules/
-configurator-fe/dist/
+ui/node_modules/
+ui/dist/
