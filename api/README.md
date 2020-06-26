@@ -49,8 +49,6 @@ server:
 * [data](https://github.com/xincao9/configurator/blob/master/api/resources/doc/data.sql)
 * username/password: admin/admin
 
-![UI](https://raw.githubusercontent.com/xincao9/configurator/master/api/resources/doc/configurator-ui.png)
-
 **Acknowledgements**
 
 * [dkv](https://github.com/xincao9/dkv)
