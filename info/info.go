@@ -1,14 +1,14 @@
 package info
 
 import (
-	"configurator/ms"
-	"fmt"
-	"io/ioutil"
-	"log"
-	"os"
-	"path/filepath"
-	"strings"
-	"time"
+    "fmt"
+    "github.com/xincao9/configurator/ms"
+    "io/ioutil"
+    "log"
+    "os"
+    "path/filepath"
+    "strings"
+    "time"
 )
 
 const (

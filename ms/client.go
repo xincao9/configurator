@@ -1,15 +1,15 @@
 package ms
 
 import (
-	"bytes"
-	"configurator/balancer"
-	"crypto/tls"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"net/http"
-	"strings"
-	"time"
+    "bytes"
+    "crypto/tls"
+    "encoding/json"
+    "errors"
+    "fmt"
+    "github.com/xincao9/configurator/balancer"
+    "net/http"
+    "strings"
+    "time"
 )
 
 type KV struct {

@@ -1,14 +1,14 @@
 package configurator
 
 import (
-	"configurator/info"
-	"encoding/json"
-	"github.com/fsnotify/fsnotify"
-	"github.com/spf13/viper"
-	"io"
-	"log"
-	"net/http"
-	"time"
+    "encoding/json"
+    "github.com/fsnotify/fsnotify"
+    "github.com/spf13/viper"
+    "github.com/xincao9/configurator/info"
+    "io"
+    "log"
+    "net/http"
+    "time"
 )
 
 var (
