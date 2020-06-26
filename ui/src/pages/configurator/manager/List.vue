@@ -3,15 +3,15 @@
         <a-modal v-model="visible" title="配置属性" @ok="handleOk" ok-text="确认" cancel-text="取消">
             <a-textarea
                 v-model="properties"
-                placeholder="json串"
-                :auto-size="{ minRows: 3, maxRows: 5 }"
+                placeholder="目前仅支持JSON格式"
+                :auto-size="{ minRows: 10, maxRows: 50 }"
             />
         </a-modal>
-        <a-table :columns="columns" :dataSource="data">
+        <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey">
             <span slot="properties" slot-scope="record">
-                <a-button @click="showProperties(record)">编辑</a-button>
+                <a @click="showProperties(record)">编辑</a>
                 <a-divider type="vertical"/>
-                <a-button @click="deleteApp(record)">删除</a-button>
+                <a @click="deleteApp(record)">删除</a>
             </span>
         </a-table>
     </div>
@@ -81,6 +81,9 @@
             };
         },
         methods: {
+            getRowKey(record) {
+                return record.id;
+            },
             getApps() {
                 let _this = this;
                 Apps.get().then(function (res) {
@@ -90,6 +93,9 @@
                 })
             },
             showProperties(app) {
+                if (app == null) {
+                    return
+                }
                 let _this = this;
                 _this.appId = app.id;
                 App.getPropertiesById(app.id).then(function (res) {
@@ -112,6 +118,9 @@
                 }
             },
             deleteApp(app) {
+                if (app == null) {
+                    return
+                }
                 let _this = this;
                 _this.$confirm({
                     title: '提醒',

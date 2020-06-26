@@ -12,7 +12,7 @@ func RenderJSON(c *gin.Context, code int, message string) {
 	if code != http.StatusOK {
 		logger.L.Error(fmt.Sprintf("code =%d, message = %v", code, message))
 	}
-	c.JSON(http.StatusOK,
+	c.JSON(code,
 		gin.H{
 			"code":    code,
 			"message": message,
@@ -20,7 +20,7 @@ func RenderJSON(c *gin.Context, code int, message string) {
 }
 
 func RenderJSONDetail(c *gin.Context, code int, message string, data interface{}) {
-	c.JSON(http.StatusOK,
+	c.JSON(code,
 		gin.H{
 			"code":    code,
 			"message": message,
