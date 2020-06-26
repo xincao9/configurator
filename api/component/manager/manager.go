@@ -2,6 +2,7 @@ package manager
 
 import (
     "configurator/api/component/config"
+    "configurator/api/component/constant"
     "configurator/api/component/logger"
     "configurator/api/component/metrics"
     "fmt"
@@ -20,7 +21,7 @@ func init() {
 	engine.Static("/api", "./api")
 	url := ginSwagger.URL("/api/swagger.yaml") // The url pointing to API definition
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-	addr := fmt.Sprintf(":%d", config.C.GetInt("manager.server.port"))
+	addr := fmt.Sprintf(":%d", config.C.GetInt(constant.ManagerServerPort))
 	logger.L.Infof("Management listening and serving HTTP on : %s", addr)
 	go func() {
 		if err := engine.Run(addr); err != nil {

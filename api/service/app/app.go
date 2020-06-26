@@ -7,7 +7,6 @@ import (
     "configurator/api/model/app"
     "fmt"
     "github.com/jinzhu/gorm"
-    "log"
     "time"
 )
 
@@ -62,15 +61,13 @@ func (as *appService) GetAppById(id int64) (*app.App, error) {
     return &a, nil
 }
 
-func (as *appService) GetAllApps() ([]app.App, error) {
-    var apps []app.App
-    err := as.o.Find(&apps).Error
-    return apps, err
+func (as *appService) GetAllApps() (apps []app.App, err error) {
+    err = as.o.Find(&apps).Error
+    return
 }
 
 func (as *appService) Delete(id int64) error {
-    err := as.o.Unscoped().Where("`id`=?", id).Delete(app.App{}).Error
-    return err
+    return as.o.Unscoped().Where("`id`=?", id).Delete(app.App{}).Error
 }
 
 func (as *appService) GetPropertiesById(id int64) (string, error) {
@@ -78,15 +75,13 @@ func (as *appService) GetPropertiesById(id int64) (string, error) {
     if err != nil {
         return "", err
     }
-    k := fmt.Sprintf("configurator|%s|%s|%s|%s", app.Env, app.Group, app.Project, app.Version)
-    r, err := as.c.GetOrRealtime(k, true)
+    r, err := as.c.GetOrRealtime(app.Key(), true)
     if err != nil {
         return "", err
     }
     if r.Code != 200 {
         return "", fmt.Errorf("dkv response code: %d, message: %s\n", r.Code, r.Message)
     }
-    log.Printf("dkv response: %v\n", r)
     return r.KV.V, nil
 }
 
@@ -95,14 +90,12 @@ func (as *appService) SavePropertiesById(id int64, props string) (string, error)
     if err != nil {
         return "", err
     }
-    k := fmt.Sprintf("configurator|%s|%s|%s|%s", app.Env, app.Group, app.Project, app.Version)
-    r, err := as.c.Put(k, props)
+    r, err := as.c.Put(app.Key(), props)
     if err != nil {
         return "", err
     }
     if r.Code != 200 {
         return "", fmt.Errorf("dkv response code: %d, message: %s\n", r.Code, r.Message)
     }
-    log.Printf("dkv response: %v\n", r)
     return r.KV.V, nil
 }

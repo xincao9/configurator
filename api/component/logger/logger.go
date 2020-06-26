@@ -2,6 +2,7 @@ package logger
 
 import (
     "configurator/api/component/config"
+    "configurator/api/component/constant"
     "github.com/sirupsen/logrus"
     "gopkg.in/natefinch/lumberjack.v2"
     "log"
@@ -12,23 +13,31 @@ var (
 	L *logrus.Logger
 )
 
+const (
+    maxSize    = 500
+    maxBackups = 3
+    maxAge     = 7
+    compress   = true
+    file       = "configurator-api.log"
+)
+
 func init() {
 	// 日志设置
 	L = logrus.New()
-	level, err := logrus.ParseLevel(config.C.GetString("logger.level"))
+	level, err := logrus.ParseLevel(config.C.GetString(constant.LoggerLevel))
 	if err != nil {
 		log.Fatalf("Fatal error logger : %v\n", err)
 	}
-	fn := filepath.Join(config.C.GetString("logger.dir"), config.C.GetString("logger.filename"))
+	fn := filepath.Join(config.C.GetString(constant.LoggerDir), file)
 	L.Out = &lumberjack.Logger{
 		Filename:   fn,
-		MaxSize:    500,
-		MaxBackups: 3,
-		MaxAge:     7,
-		Compress:   false,
+		MaxSize:    maxSize,
+		MaxBackups: maxBackups,
+		MaxAge:     maxAge,
+		Compress:   compress,
 	}
 	L.SetLevel(level)
-	L.Formatter = &logrus.TextFormatter{}
+	L.Formatter = &logrus.JSONFormatter{}
 	log.SetFlags(log.LstdFlags | log.Llongfile)
 	log.SetOutput(L.WriterLevel(logrus.InfoLevel))
 }

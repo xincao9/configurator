@@ -6,6 +6,6 @@ import (
 )
 
 func Use(engine *gin.Engine) {
-	p := ginprometheus.NewPrometheus("configurator-api")
+	p := ginprometheus.NewPrometheus("configurator")
 	p.Use(engine)
 }

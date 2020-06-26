@@ -2,6 +2,7 @@ package app
 
 import (
     "configurator/api/component/util"
+    "configurator/api/constant"
     "configurator/api/model/app"
     appService "configurator/api/service/app"
     "encoding/json"
@@ -22,7 +23,7 @@ func Route(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
         }
-        util.RenderJSON(c, http.StatusOK, "成功")
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, a)
     }
     engine.POST("/app", save)
     engine.PUT("/app", save)
@@ -32,7 +33,7 @@ func Route(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
         }
-        util.RenderJSONDetail(c, http.StatusOK, "成功", apps)
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, apps)
     })
     engine.GET("/app/:id", func(c *gin.Context) {
         n := c.Param("id")
@@ -50,7 +51,7 @@ func Route(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
         }
-        util.RenderJSONDetail(c, http.StatusOK, "成功", a)
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, a)
     })
     engine.DELETE("/app/:id", func(c *gin.Context) {
         n := c.Param("id")
@@ -68,7 +69,7 @@ func Route(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
         }
-        util.RenderJSON(c, http.StatusOK, "成功")
+        util.RenderJSON(c, http.StatusOK, constant.Success)
     })
     engine.GET("/app/:id/properties", func(c *gin.Context) {
         n := c.Param("id")
@@ -81,12 +82,12 @@ func Route(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusBadRequest, err.Error())
             return
         }
-        properties, err := appService.A.GetPropertiesById(id)
+        props, err := appService.A.GetPropertiesById(id)
         if err != nil {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
         }
-        util.RenderJSONDetail(c, http.StatusOK, "成功", properties)
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, props)
     })
     engine.PUT("/app/:id/properties", func(c *gin.Context) {
         n := c.Param("id")
@@ -113,6 +114,6 @@ func Route(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
         }
-        util.RenderJSONDetail(c, http.StatusOK, "成功", props)
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, props)
     })
 }

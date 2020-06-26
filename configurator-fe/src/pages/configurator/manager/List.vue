@@ -9,7 +9,7 @@
         </a-modal>
         <a-table :columns="columns" :dataSource="data">
             <span slot="properties" slot-scope="record">
-                <a-button @click="showProperties(record)">查看</a-button>
+                <a-button @click="showProperties(record)">编辑</a-button>
                 <a-divider type="vertical"/>
                 <a-button @click="deleteApp(record)">删除</a-button>
             </span>

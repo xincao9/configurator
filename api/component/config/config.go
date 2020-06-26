@@ -1,43 +1,61 @@
 package config
 
 import (
+	"configurator/api/component/constant"
+	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
+	"strings"
 )
 
 var (
-	C   *viper.Viper
-	Env = os.Getenv("Env")
+	C *viper.Viper
 )
 
 func init() {
-	C = viper.New()
-	if Env == "" {
-		C.SetConfigName("config")
-	} else {
-		C.SetConfigName(fmt.Sprintf("config-%s", Env))
+	d := flag.Bool("d", false, "run app as a daemon with -d=true")
+	c := flag.String("conf", "configurator-api.yaml", "configure file")
+	if flag.Parsed() == false {
+		flag.Parse()
 	}
+	if *d {
+		args := os.Args[1:]
+		i := 0
+		for ; i < len(args); i++ {
+			if args[i] == "-d=true" {
+				args[i] = "-d=false"
+				break
+			}
+		}
+		cmd := exec.Command(os.Args[0], args...)
+		cmd.Start()
+		fmt.Println("[PID]", cmd.Process.Pid)
+		os.Exit(0)
+	}
+	C = viper.New()
+	for _, t := range []string{"yaml", "yml"} {
+		if strings.HasSuffix(*c, t) {
+			i := strings.LastIndex(*c, t)
+			*c = string([]byte(*c)[:i-1])
+		}
+	}
+	C.SetConfigName(*c)
 	C.SetConfigType("yaml")
 	C.AddConfigPath("./resources/conf")
-    C.AddConfigPath("/usr/local/configurator-api/conf/")
-	C.SetDefault("logger.dir", "/tmp/logs")
-	C.SetDefault("logger.level", "debug")
-	C.SetDefault("logger.filename", "configurator-api.log")
-	C.SetDefault("server.mode", "debug")
-	C.SetDefault("server.port", 8080)
-	C.SetDefault("server.cors.accessControlAllowOrigin", "http://localhost:8081")
-	C.SetDefault("manager.server.port", 8081)
-	C.SetDefault("db.dataSourceName", "root:asdf@tcp(localhost:3306)/configurator?charset=utf8&parseTime=true")
-	C.SetDefault("gpool.size", 10000)
-	C.SetDefault("email.address", "smtp.exmail.qq.com:587")
-	C.SetDefault("email.username", "")
-	C.SetDefault("email.password", "")
-	C.SetDefault("email.host", "smtp.exmail.qq.com")
-	C.SetDefault("email.pool.maxSize", 4)
+	C.AddConfigPath("/usr/local/configurator-api/conf/")
+	C.SetDefault(constant.LoggerDir, "/tmp/logs")
+	C.SetDefault(constant.LoggerLevel, "debug")
+	C.SetDefault(constant.ServerMode, "debug")
+	C.SetDefault(constant.ServerPort, 8080)
+	C.SetDefault(constant.ServerCorsAccessControlAllowOrigin, "http://localhost:8081")
+	C.SetDefault(constant.ManagerServerPort, 8090)
+	C.SetDefault(constant.DBDataSourceName, "root:asdf@tcp(localhost:3306)/configurator?charset=utf8&parseTime=true")
+	C.SetDefault(constant.DKVAddress, "localhost:9090")
 	err := C.ReadInConfig()
 	if err != nil {
 		log.Fatalf("Fatal error conf : %v\n", err)
@@ -45,7 +63,7 @@ func init() {
 }
 
 func Route(engine *gin.Engine) {
-	engine.GET("/conf", func(c *gin.Context) {
+	engine.GET("/config", func(c *gin.Context) {
 		c.JSON(http.StatusOK, C.AllSettings())
 	})
 }
