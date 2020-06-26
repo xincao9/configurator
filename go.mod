@@ -1,4 +1,4 @@
-module configurator
+module github.com/xincao9/configurator
 
 go 1.12
 
