@@ -3,8 +3,8 @@ package logger
 import (
     "configurator/api/component/config"
     "configurator/api/component/constant"
+    "github.com/natefinch/lumberjack"
     "github.com/sirupsen/logrus"
-    "gopkg.in/natefinch/lumberjack.v2"
     "log"
     "path/filepath"
 )
