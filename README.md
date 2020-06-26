@@ -20,26 +20,6 @@ curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"
 
 It is recommended to use [configurator-ui](https://github.com/xincao9/configurator/tree/master/api) to manage configuration
 
-```
-#The following is set through the command line
-git clone https://github.com/xincao9/configurator.git
-cd configurator
-install: make install
-exec: configurator-cli
-  -env string
-    	environment
-  -group string
-    	group
-  -master string
-    	dkv master address (default "localhost:9090")
-  -project string
-    	project
-  -properties string
-    	configuration properties
-  -version string
-    	version
-```
-
 ## SDK USE
 
 **Get the package**
