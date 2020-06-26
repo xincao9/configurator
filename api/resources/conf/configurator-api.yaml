@@ -3,7 +3,7 @@ db:
 dkv:
     address: localhost:9090
 logger:
-    dir: "/tmp/logs"
+    dir: /tmp/logs
     level: debug
 manager:
     server:

@@ -11,7 +11,7 @@ import (
 )
 
 func init() {
-	gin.SetMode(config.C.GetString("server.mode"))
+	gin.SetMode(config.C.GetString(constant.ServerMode))
 	engine := gin.New()
 	engine.Use(gin.LoggerWithConfig(gin.LoggerConfig{Output: logger.L.WriterLevel(logrus.DebugLevel)}), gin.RecoveryWithWriter(logger.L.WriterLevel(logrus.ErrorLevel)))
 	config.Route(engine) // 配置服务接口

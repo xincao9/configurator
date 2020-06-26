@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	assetsDir = "/usr/local/configurator-api/assets"
+	assetsDir = "/usr/local/configurator/assets"
 )
 
 var (
