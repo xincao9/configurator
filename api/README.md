@@ -23,7 +23,27 @@ cd configurator/api
 sudo make install
 
 bin: /usr/local/configurator-api/bin/configurator-api
-conf: /usr/local/configurator-api/conf/config.yaml
+conf: /usr/local/configurator-api/conf/configurator-api.yaml
+```
+
+**Configuration file**
+
+```
+db:
+    datasourcename: root:asdf@tcp(localhost:3306)/configurator?charset=utf8&parseTime=true
+dkv:
+    address: localhost:9090
+logger:
+    dir: "/tmp/logs"
+    level: debug
+manager:
+    server:
+        port: 8090
+server:
+    cors:
+        accesscontrolalloworigin: http://localhost:8081
+    mode: debug
+    port: 8080
 ```
 
 **Acknowledgements**

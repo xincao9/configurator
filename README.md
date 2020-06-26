@@ -40,7 +40,7 @@ exec: configurator-cli
     	version
 ```
 
-## SDK Use 
+## SDK USE
 
 **Get the package**
 
