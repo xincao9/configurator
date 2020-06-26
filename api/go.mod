@@ -11,6 +11,7 @@ require (
 	github.com/rs/cors v1.7.0
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/viper v1.7.0
+	github.com/stretchr/objx v0.1.1 // indirect
 	github.com/zsais/go-gin-prometheus v0.1.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )
