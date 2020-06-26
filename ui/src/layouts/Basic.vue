@@ -3,7 +3,7 @@
         <a-layout-header class="header">
             <div class="logo"/>
             <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]" :style="{ lineHeight: '64px' }" @click="click">
-                <a-menu-item key="configurator">配置</a-menu-item>
+                <a-menu-item key="configurator">配置中心</a-menu-item>
             </a-menu>
         </a-layout-header>
         <a-layout>
@@ -15,7 +15,7 @@
 						<span slot="title">
 							<a-icon type="user"/>管理</span>
                         <a-menu-item key=":pages:configurator:manager:list"><a-icon type="unordered-list"/>列表</a-menu-item>
-						<a-menu-item key=":pages:configurator:manager:save"><a-icon type="save"/>保存</a-menu-item>
+						<a-menu-item key=":pages:configurator:manager:save"><a-icon type="save"/>新建</a-menu-item>
                     </a-sub-menu>
                 </a-menu>
             </a-layout-sider>
@@ -34,7 +34,7 @@
 </template>
 <script>
     const dict = {
-        ['configurator']: '配置',
+        ['configurator']: '配置中心',
         ['manager']: '管理',
         [':pages:configurator:manager:list']: '列表',
 		[':pages:configurator:manager:save']: '保存',
