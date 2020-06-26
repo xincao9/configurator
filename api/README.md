@@ -14,11 +14,8 @@ docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 
 ```
 git clone https://github.com/xincao9/configurator.git
-
 cd configurator/api
-
 sudo make install
-
 bin: /usr/local/configurator-api/bin/configurator-api
 conf: /usr/local/configurator-api/conf/configurator-api.yaml
 ```
@@ -45,8 +42,6 @@ server:
     mode: debug
     port: 8080
 ```
-
-![UI](https://raw.githubusercontent.com/xincao9/configurator/master/api/resources/doc/configurator-ui.png)
 
 **Acknowledgements**
 
