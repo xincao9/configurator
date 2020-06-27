@@ -1,11 +1,11 @@
 package configurator
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
-	"net/http/httptest"
-	"testing"
+    "fmt"
+    "io/ioutil"
+    "net/http"
+    "net/http/httptest"
+    "testing"
 )
 
 func TestConfigurator_AllSettings(t *testing.T) {
