@@ -1,6 +1,6 @@
 # configurator-ui
 
-**Technical selection**
+**技术选型**
 
 * [Vue](https://cn.vuejs.org/)
 * [Vue Routr](https://router.vuejs.org/zh/)
