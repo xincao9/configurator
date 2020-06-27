@@ -2,8 +2,8 @@
 
 配置器的特点:
 
-1. 支持完整的配置管理功能
-2. 支持 多环境，多业务组，多服务，多版本 的配置分类
+1. 完整的配置管理功能
+2. 多环境，多业务组，多服务，多版本 的配置分类
 
 ![architectures](https://raw.githubusercontent.com/xincao9/configurator/master/configurator.png)
 
@@ -16,7 +16,7 @@ docker pull xincao9/dkv
 docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 ```
 
-**设置服务配置**
+**创建服务配置**
 
 >接口
 ```
@@ -27,7 +27,7 @@ curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"
 
 ## 如何使用SDK
 
-**获得SDK**
+**获取SDK**
 
 ```
 go get github.com/xincao9/configurator
@@ -44,14 +44,14 @@ export master="localhost:9090" // dkv 的master地址
 export slaves="" // dkv 的slaves地址，host1:port1,host2:port2
 ```
 
-**获取属性**
+**读取属性**
 
 ```
 configurator.C.Get("redis.host")
 configurator.C.Get("redis.port")
 ```
 
-**管理端口，用于查看运行时的配置**
+**设置管理端口**
 
 ```
 http.HandleFunc("/config", configurator.AllSettings)
