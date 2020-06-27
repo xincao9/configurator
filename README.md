@@ -18,12 +18,12 @@ docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 
 **设置服务配置**
 
->通过接口
+>接口
 ```
 curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"k":"configurator|test|cbs|user-service|1.0", "v":"{\"redis\":{\"host\":\"localhost\",\"port\":\"6379\"}}"}'
 ```
 
->推荐使用 [configurator-ui](https://github.com/xincao9/configurator/tree/master/api) 管理你的配置
+>推荐使用 [configurator-ui](https://github.com/xincao9/configurator/tree/master/api) 系统管理配置
 
 ## 如何使用SDK
 

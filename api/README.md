@@ -1,29 +1,35 @@
 # configurator-ui
 
+配置器的特点:
 
->configurator ui Applicable to, need to support multi-environment, multi-version, multi-application centralized configuration
+1. 支持完整的配置管理功能
+2. 支持 多环境，多业务组，多服务，多版本 的配置分类
 
-**Install dkv**
+## 安装中间件
+
+**安装 [dkv](https://github.com/xincao9/dkv)**
 
 ```
 docker pull xincao9/dkv
 docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 ```
+**MYSQL**
 
-**Install configurator-ui**
+* [schema](https://github.com/xincao9/configurator/blob/master/api/resources/doc/schema.sql)
+* [data](https://github.com/xincao9/configurator/blob/master/api/resources/doc/data.sql)
+* username/password: admin/admin
+
+**安装 configurator-ui**
 
 ```
 git clone https://github.com/xincao9/configurator.git
-
 cd configurator/api
-
 sudo make install
-
-bin: /usr/local/configurator-api/bin/configurator-api
-conf: /usr/local/configurator-api/conf/configurator-api.yaml
+可执行文件 /usr/local/configurator/bin/configurator-api
+配置文件: /usr/local/configurator/conf/configurator-api.yaml
 ```
 
-**Configuration file**
+**configurator-api.yaml**
 
 ```
 db:
@@ -43,12 +49,6 @@ server:
     port: 8080
 ```
 
-**Table structure**
-
-* [schema](https://github.com/xincao9/configurator/blob/master/api/resources/doc/schema.sql)
-* [data](https://github.com/xincao9/configurator/blob/master/api/resources/doc/data.sql)
-* username/password: admin/admin
-
-**Acknowledgements**
+**知识**
 
 * [dkv](https://github.com/xincao9/dkv)
