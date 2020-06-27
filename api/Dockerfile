@@ -8,4 +8,4 @@ RUN make install
 
 EXPOSE 8080
 
-CMD ["/usr/local/configurator-api/bin/configurator-api"]
+CMD ["/usr/local/configurator/bin/configurator-api"]
