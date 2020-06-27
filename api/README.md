@@ -2,8 +2,8 @@
 
 配置器的特点:
 
-1. 支持完整的配置管理功能
-2. 支持 多环境，多业务组，多服务，多版本 的配置分类
+1. 完整的配置管理功能
+2. 多环境，多业务组，多服务，多版本 的配置分类
 
 ## 安装中间件
 
@@ -13,6 +13,7 @@
 docker pull xincao9/dkv
 docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 ```
+
 **MYSQL**
 
 * [schema](https://github.com/xincao9/configurator/blob/master/api/resources/doc/schema.sql)
