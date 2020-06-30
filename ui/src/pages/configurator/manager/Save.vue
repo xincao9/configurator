@@ -5,16 +5,16 @@
         <a-form-model ref="form" :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 10 }" :rules="rules"
                       style="margin-top: 50px;">
             <a-form-model-item label="环境" prop="env">
-                <a-input v-model="form.env" placeholder="test"/>
+                <a-input v-model="form.env" placeholder="例如: TEST"/>
             </a-form-model-item>
             <a-form-model-item label="组" prop="group">
-                <a-input v-model="form.group" placeholder="cbs"/>
+                <a-input v-model="form.group" placeholder="例如: BASE"/>
             </a-form-model-item>
             <a-form-model-item label="项目" prop="project">
-                <a-input v-model="form.project" placeholder="user-service"/>
+                <a-input v-model="form.project" placeholder="例如: USER-SERVICE"/>
             </a-form-model-item>
             <a-form-model-item label="版本" prop="version">
-                <a-input v-model="form.version" placeholder="1.0"/>
+                <a-input v-model="form.version" placeholder="v1.0"/>
             </a-form-model-item>
             <a-form-model-item :wrapper-col="{ offset: 8 }">
                 <a-button type="primary" @click="onSubmit">

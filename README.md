@@ -20,7 +20,7 @@ docker run -d -p 9090:9090 -p 6380:6380 dkv:latest
 
 >接口
 ```
-curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"k":"configurator|test|cbs|user-service|1.0", "v":"{\"redis\":{\"host\":\"localhost\",\"port\":\"6379\"}}"}'
+curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"k":"configurator|TEST|BASE|USER-SERVICE|v1.0", "v":"{\"redis\":{\"host\":\"localhost\",\"port\":\"6379\"}}"}'
 ```
 
 >推荐使用 [configurator-ui](https://github.com/xincao9/configurator/tree/master/api) 系统管理配置
@@ -36,10 +36,10 @@ go get github.com/xincao9/configurator
 **设置系统环境变量**
 
 ```
-export env="test" // 环境
-export group="cbs" // 业务组
-export project="user-service" // 项目
-export version="1.0" // 版本
+export env="TEST" // 环境
+export group="BASE" // 业务组
+export project="USER-SERVICE" // 项目
+export version="v1.0" // 版本
 export master="localhost:9090" // dkv 的master地址
 export slaves="" // dkv 的slaves地址，host1:port1,host2:port2
 ```
