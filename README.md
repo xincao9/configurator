@@ -25,7 +25,11 @@ curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"
 
 >推荐使用 [configurator-ui](https://github.com/xincao9/configurator/tree/master/api) 系统管理配置
 
-## 如何使用SDK
+## 如何使用JAVA SDK
+
+[configurator-cli](https://github.com/xincao9/configurator-cli)
+
+## 如何使用GO SDK
 
 **获取SDK**
 
