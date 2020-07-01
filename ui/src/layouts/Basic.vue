@@ -2,7 +2,8 @@
     <a-layout id="layout_basic">
         <a-layout-header class="header">
             <div class="logo"/>
-            <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]" :style="{ lineHeight: '64px' }" @click="click">
+            <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]" :style="{ lineHeight: '64px' }"
+                    @click="click">
                 <a-menu-item key="configurator">配置中心</a-menu-item>
                 <a-menu-item key="user_setting">用户设置</a-menu-item>
             </a-menu>
@@ -15,8 +16,14 @@
                     <a-sub-menu key="manager">
 						<span slot="title">
 							<a-icon type="file"/>配置管理</span>
-                        <a-menu-item key=":pages:configurator:manager:list"><a-icon type="unordered-list"/>列表</a-menu-item>
-						<a-menu-item key=":pages:configurator:manager:save"><a-icon type="save"/>新建</a-menu-item>
+                        <a-menu-item key=":pages:configurator:manager:list">
+                            <a-icon type="unordered-list"/>
+                            列表
+                        </a-menu-item>
+                        <a-menu-item key=":pages:configurator:manager:save">
+                            <a-icon type="save"/>
+                            新建
+                        </a-menu-item>
                     </a-sub-menu>
                 </a-menu>
                 <a-menu v-if="selectedKeys == 'user_setting'" mode="inline" :defaultSelectedKeys="[siderSelectedKeys]"
@@ -25,14 +32,26 @@
                     <a-sub-menu key="notification">
 						<span slot="title">
 							<a-icon type="message"/>通知管理</span>
-                        <a-menu-item key=":pages:user_setting:notification:message_box"><a-icon type="inbox"/>消息箱</a-menu-item>
-                        <a-menu-item key=":pages:user_setting:notification:operation_log"><a-icon type="unordered-list"/>操作日志</a-menu-item>
+                        <a-menu-item key=":pages:user_setting:notification:message_box">
+                            <a-icon type="inbox"/>
+                            消息箱
+                        </a-menu-item>
+                        <a-menu-item key=":pages:user_setting:notification:operation_log">
+                            <a-icon type="unordered-list"/>
+                            操作日志
+                        </a-menu-item>
                     </a-sub-menu>
                     <a-sub-menu key="account">
 						<span slot="title">
 							<a-icon type="user"/>账号管理</span>
-                        <a-menu-item key=":pages:user_setting:account:list"><a-icon type="unordered-list"/>列表</a-menu-item>
-                        <a-menu-item key=":pages:user_setting:account:save"><a-icon type="save"/>新建</a-menu-item>
+                        <a-menu-item key=":pages:user_setting:account:list">
+                            <a-icon type="unordered-list"/>
+                            列表
+                        </a-menu-item>
+                        <a-menu-item key=":pages:user_setting:account:save">
+                            <a-icon type="save"/>
+                            新建
+                        </a-menu-item>
                     </a-sub-menu>
                 </a-menu>
             </a-layout-sider>
@@ -54,7 +73,7 @@
         ['configurator']: '配置中心',
         ['manager']: '管理',
         [':pages:configurator:manager:list']: '列表',
-		[':pages:configurator:manager:save']: '保存',
+        [':pages:configurator:manager:save']: '保存',
         ['user_setting']: "用户设置",
         ['notification']: "通知管理",
         [':pages:user_setting:notification:message_box']: "消息箱",

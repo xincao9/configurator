@@ -24,19 +24,19 @@ const routes = [{
         children: [{
             path: '/pages/configurator/manager/list',
             component: PagesConfiguratorManagerList
-        },{
+        }, {
             path: '/pages/configurator/manager/save',
             component: PagesConfiguratorManagerSave
-        },{
+        }, {
             path: '/pages/user_setting/account/list',
             component: PagesUserSettingAccountList
-        },{
+        }, {
             path: '/pages/user_setting/account/save',
             component: PagesUserSettingAccountSave
-        },{
+        }, {
             path: '/pages/user_setting/notification/message_box',
             component: PagesUserSettingNotificationMessageBox
-        },{
+        }, {
             path: '/pages/user_setting/notification/operation_log',
             component: PagesUserSettingNotificationOperationLog
         }

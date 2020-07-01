@@ -35,3 +35,34 @@ CREATE TABLE `app`
     UNIQUE KEY `app_idx` (`env`, `group`, `project`, `version`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+DROP TABLE IF EXISTS `message_box`;
+
+CREATE TABLE `message_box`
+(
+    `id`         bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+    `username`   char(32)            NOT NULL DEFAULT '',
+    `message`    varchar(256)        NOT NULL DEFAULT '',
+    `status`     int(11) unsigned    NOT NULL,
+    `created_at` timestamp           NULL     DEFAULT NULL,
+    `deleted_at` timestamp           NULL     DEFAULT NULL,
+    `updated_at` timestamp           NULL     DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `username_idx` (`username`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+DROP TABLE IF EXISTS `operation_log`;
+
+CREATE TABLE `operation_log`
+(
+    `id`         bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+    `username`   char(32)            NOT NULL DEFAULT '',
+    `message`    varchar(256)        NOT NULL DEFAULT '',
+    `created_at` timestamp           NULL     DEFAULT NULL,
+    `deleted_at` timestamp           NULL     DEFAULT NULL,
+    `updated_at` timestamp           NULL     DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `username_idx` (`username`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
