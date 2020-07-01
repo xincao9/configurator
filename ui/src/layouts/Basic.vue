@@ -4,6 +4,7 @@
             <div class="logo"/>
             <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]" :style="{ lineHeight: '64px' }" @click="click">
                 <a-menu-item key="configurator">配置中心</a-menu-item>
+                <a-menu-item key="user_setting">用户设置</a-menu-item>
             </a-menu>
         </a-layout-header>
         <a-layout>
@@ -13,9 +14,25 @@
                         :defaultOpenKeys="[openKeys]" :style="{ height: '100%', borderRight: 0 }" @click="siderClick">
                     <a-sub-menu key="manager">
 						<span slot="title">
-							<a-icon type="user"/>管理</span>
+							<a-icon type="file"/>配置管理</span>
                         <a-menu-item key=":pages:configurator:manager:list"><a-icon type="unordered-list"/>列表</a-menu-item>
 						<a-menu-item key=":pages:configurator:manager:save"><a-icon type="save"/>新建</a-menu-item>
+                    </a-sub-menu>
+                </a-menu>
+                <a-menu v-if="selectedKeys == 'user_setting'" mode="inline" :defaultSelectedKeys="[siderSelectedKeys]"
+                        :selectedKeys="[siderSelectedKeys]"
+                        :defaultOpenKeys="[openKeys]" :style="{ height: '100%', borderRight: 0 }" @click="siderClick">
+                    <a-sub-menu key="notification">
+						<span slot="title">
+							<a-icon type="message"/>通知管理</span>
+                        <a-menu-item key=":pages:user_setting:notification:message_box"><a-icon type="inbox"/>消息箱</a-menu-item>
+                        <a-menu-item key=":pages:user_setting:notification:operation_log"><a-icon type="unordered-list"/>操作日志</a-menu-item>
+                    </a-sub-menu>
+                    <a-sub-menu key="account">
+						<span slot="title">
+							<a-icon type="user"/>账号管理</span>
+                        <a-menu-item key=":pages:user_setting:account:list"><a-icon type="unordered-list"/>列表</a-menu-item>
+                        <a-menu-item key=":pages:user_setting:account:save"><a-icon type="save"/>新建</a-menu-item>
                     </a-sub-menu>
                 </a-menu>
             </a-layout-sider>
@@ -38,6 +55,13 @@
         ['manager']: '管理',
         [':pages:configurator:manager:list']: '列表',
 		[':pages:configurator:manager:save']: '保存',
+        ['user_setting']: "用户设置",
+        ['notification']: "通知管理",
+        [':pages:user_setting:notification:message_box']: "消息箱",
+        [':pages:user_setting:notification:operation_log']: "操作日志",
+        ['account']: "账号管理",
+        [':pages:user_setting:account:list']: "列表",
+        [':pages:user_setting:account:save']: "新建",
     }
     export default {
         created() {
@@ -60,6 +84,13 @@
                     this.siderSelectedKeys = ':pages:configurator:manager:list';
                     this.$router.push({
                         path: '/pages/configurator/manager/list'
+                    });
+                } else if (key == 'user_setting') {
+                    this.selectedKeys = 'user_setting';
+                    this.openKeys = 'notification';
+                    this.siderSelectedKeys = ':pages:user_setting:notification:message_box';
+                    this.$router.push({
+                        path: '/pages/user_setting/notification/message_box'
                     });
                 }
             },
