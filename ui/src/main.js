@@ -16,7 +16,7 @@ axios.defaults.baseURL = process.env.API_URL || 'http://localhost:8080';
 axios.defaults.withCredentials = true;
 
 axios.interceptors.response.use(function (response) {
-    if (response.status != 200 || response.data.code == 401) {
+    if (response.status != 200 || response.data.code == 400) {
         router.push({
             path: "/"
         });
