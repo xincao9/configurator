@@ -4,7 +4,7 @@
         <hr/>
         <a-form-model ref="form" :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 10 }" :rules="rules"
                       style="margin-top: 50px;">
-            <a-form-model-item label="用户名" prop="username">
+            <a-form-model-item label="用户" prop="username">
                 <a-input v-model="form.username" placeholder="xincao9"/>
             </a-form-model-item>
             <a-form-model-item label="密码" prop="password">
