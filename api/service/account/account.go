@@ -85,6 +85,12 @@ func (as *accountService) GetAccountByToken(token string) (*account.Account, err
     return a, nil
 }
 
+func (as *accountService) GetAllAccounts() ([]account.Account, error) {
+    var accounts []account.Account
+    err := as.o.Find(&accounts).Error
+    return accounts, err
+}
+
 func (as *accountService) Delete(id int64) error {
     return as.o.Unscoped().Where("`id`=?", id).Delete(account.Account{}).Error
 }

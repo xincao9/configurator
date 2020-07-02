@@ -33,11 +33,28 @@ func Route(engine *gin.Engine) {
         c.SetCookie(constant.Token, a.Token, (int)((time.Hour*time.Duration(constant.SessionExpireHour))/time.Second), "/", "*", false, false)
         util.RenderJSONDetail(c, http.StatusOK, constant.Success, a)
     }
-    engine.POST("/account", save)
-    engine.PUT("/account", save)
+    engine.PUT("/session", save)
+    engine.POST("/session", save)
 }
 
 func AuthenticationRoute(engine *gin.RouterGroup) {
+    save := func(c *gin.Context) {
+        a := &account.Account{}
+        if err := c.ShouldBindJSON(a); err != nil {
+            util.RenderJSON(c, http.StatusBadRequest, err.Error())
+            return
+        }
+        a.Token = uuid.New().String()
+        a.Expire = time.Now()
+        err := accountService.A.Save(a) // 更新登录信息
+        if err != nil {
+            util.RenderJSON(c, http.StatusInternalServerError, err.Error())
+            return
+        }
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, a)
+    }
+    engine.POST("/account", save)
+    engine.PUT("/account", save)
     engine.DELETE("/account", func(c *gin.Context) {
         sa, ok := c.Get(constant.SessionAccount)
         if ok == false {
@@ -52,5 +69,13 @@ func AuthenticationRoute(engine *gin.RouterGroup) {
         }
         a.Expire = time.Now()
         util.RenderJSON(c, http.StatusOK, constant.Success)
+    })
+    engine.GET("/accounts", func(c *gin.Context) {
+        as, err := accountService.A.GetAllAccounts()
+        if err != nil {
+            util.RenderJSON(c, http.StatusInternalServerError, err.Error())
+            return
+        }
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, as)
     })
 }

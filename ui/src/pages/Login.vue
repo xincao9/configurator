@@ -45,7 +45,7 @@
     import resource from "resource-axios";
     import axios from "axios";
 
-    const Account = resource("/account", axios);
+    const Session = resource("/session", axios);
 
     export default {
         beforeCreate() {
@@ -58,7 +58,7 @@
                 e.preventDefault();
                 this.form.validateFields((err, values) => {
                     if (!err) {
-                        Account.post(values).then(function (res) {
+                        Session.post(values).then(function (res) {
                             if (res.status == 200 && res.data.code == 200) {
                                 router.push({
                                     path: "/pages/configurator/manager/list"
