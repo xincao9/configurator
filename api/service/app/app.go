@@ -3,10 +3,10 @@ package app
 import (
     "configurator/api/component/db"
     "configurator/api/component/logger"
-    "configurator/api/component/ms"
     "configurator/api/model/app"
     "fmt"
     "github.com/jinzhu/gorm"
+    "github.com/xincao9/dkv/client"
     "time"
 )
 
@@ -23,7 +23,7 @@ func init() {
 }
 
 func new() (*appService, error) {
-    c, err := ms.New("localhost:9090", time.Second)
+    c, err := client.New("localhost:9090", time.Second)
     if err != nil {
         return nil, err
     }
@@ -32,7 +32,7 @@ func new() (*appService, error) {
 
 type appService struct {
     o *gorm.DB
-    c *ms.Client
+    c *client.Client
 }
 
 func (as *appService) Save(a *app.App) error {

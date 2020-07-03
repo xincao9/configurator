@@ -1,4 +1,4 @@
-package ms
+package client
 
 import (
     "bytes"
@@ -6,7 +6,6 @@ import (
     "encoding/json"
     "errors"
     "fmt"
-    "github.com/xincao9/configurator/balancer"
     "net/http"
     "strings"
     "time"
@@ -76,11 +75,11 @@ func NewMSClient(master string, slaves []string, timeout time.Duration, idleConn
     var uris []string
     for _, slave := range slaves {
         slaveUri := fmt.Sprintf("%s%s/kv", proto, slave)
-        balancer.B.Register(slaveUri)
+        B.Register(slaveUri)
         uris = append(uris, slaveUri)
     }
     masterUri := fmt.Sprintf("%s%s/kv", proto, master)
-    balancer.B.Register(masterUri)
+    B.Register(masterUri)
     uris = append(uris, masterUri)
     return &Client{c: c, masterUri: masterUri, uris: uris}, nil
 }
@@ -128,8 +127,8 @@ func (c *Client) GetOrRealtime(key string, realtime bool) (*Result, error) {
         return nil, KeyNotEmpty
     }
     uri := c.masterUri
-    if realtime == false {
-        uri = balancer.B.Choose()
+    if realtime == false && c.uris != nil && len(c.uris) > 0 {
+        uri = B.Choose()
     }
     request, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/%s", uri, key), nil)
     if err != nil {
@@ -140,7 +139,7 @@ func (c *Client) GetOrRealtime(key string, realtime bool) (*Result, error) {
         return nil, err
     }
     if realtime == false {
-        defer balancer.B.Increment()
+        defer B.Increment()
     }
     defer response.Body.Close()
     return parseResponse(response)

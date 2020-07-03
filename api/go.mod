@@ -12,6 +12,7 @@ require (
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/viper v1.7.0
 	github.com/stretchr/objx v0.1.1 // indirect
+	github.com/xincao9/dkv/client v0.0.0-20200703030103-a5999e09b1a8
 	github.com/zsais/go-gin-prometheus v0.1.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )

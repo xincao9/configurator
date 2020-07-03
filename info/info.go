@@ -2,7 +2,7 @@ package info
 
 import (
     "fmt"
-    "github.com/xincao9/configurator/ms"
+    "github.com/xincao9/dkv/client"
     "io/ioutil"
     "log"
     "os"
@@ -66,9 +66,9 @@ func newInfo() (*info, error) {
     }
     if os.Getenv(slavesKey) != "" {
         inf.slaves = strings.Split(os.Getenv(slavesKey), ",")
-        inf.client, err = ms.NewMS(inf.master, inf.slaves, time.Second)
+        inf.client, err = client.NewMS(inf.master, inf.slaves, time.Second)
     } else {
-        inf.client, err = ms.New(inf.master, time.Second)
+        inf.client, err = client.New(inf.master, time.Second)
     }
     return inf, err
 }
@@ -81,7 +81,7 @@ type info struct {
     master  string
     slaves  []string
     Path    string
-    client  *ms.Client
+    client  *client.Client
 }
 
 func (inf *info) key() string {

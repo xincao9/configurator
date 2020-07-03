@@ -93,6 +93,8 @@ github.com/spf13/viper
 github.com/subosito/gotenv
 # github.com/ugorji/go/codec v1.1.7
 github.com/ugorji/go/codec
+# github.com/xincao9/dkv/client v0.0.0-20200703030103-a5999e09b1a8
+github.com/xincao9/dkv/client
 # github.com/zsais/go-gin-prometheus v0.1.0
 github.com/zsais/go-gin-prometheus
 # golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd
