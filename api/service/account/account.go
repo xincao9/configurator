@@ -3,6 +3,8 @@ package account
 import (
     "configurator/api/component/db"
     "configurator/api/model/account"
+    "configurator/api/model/operation_log"
+    operationLogService "configurator/api/service/operation_log"
     "crypto/md5"
     "encoding/hex"
     "fmt"
@@ -54,6 +56,10 @@ func (as *accountService) Save(a *account.Account) error {
         h.Write([]byte(a.Password))
         p := hex.EncodeToString(h.Sum(nil))
         a.Password = p
+        operationLogService.O.Save(&operation_log.OperationLog{
+            Username: a.Username,
+            Message:  fmt.Sprintf("欢迎第一次登录 configurator UI"),
+        })
         return as.o.Save(a).Error
     }
     a.Id = oa.Id

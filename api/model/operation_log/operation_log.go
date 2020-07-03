@@ -6,6 +6,6 @@ import (
 
 type OperationLog struct {
     db.Model
-    Username string `json:"share_id" gorm:"column:share_id"`
+    Username string `json:"username" gorm:"column:username"`
     Message  string `json:"message" gorm:"column:message"`
 }

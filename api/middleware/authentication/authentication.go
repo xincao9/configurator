@@ -3,7 +3,10 @@ package authentication
 import (
     "configurator/api/component/util"
     "configurator/api/constant"
+    "configurator/api/model/operation_log"
     accountService "configurator/api/service/account"
+    operationLogService "configurator/api/service/operation_log"
+    "fmt"
     "github.com/gin-gonic/gin"
     "net/http"
     "time"
@@ -23,4 +26,12 @@ func Authentication(c *gin.Context) {
         return
     }
     c.Set(constant.SessionAccount, a) // 设置本地会话
+    if c.Request.Method == "GET" {
+        return
+    } else if c.Request.Method == "DELETE" || c.Request.Method == "POST" || c.Request.Method == "PUT" {
+        operationLogService.O.Save(&operation_log.OperationLog{
+            Username: a.Username,
+            Message:  fmt.Sprintf("method = %s, uri = %s", c.Request.Method, c.Request.URL.RequestURI()),
+        })
+    }
 }
