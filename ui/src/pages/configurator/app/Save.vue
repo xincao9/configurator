@@ -105,7 +105,8 @@
                 );
             },
             envChange(envId) {
-                this.form.env = this.envs[envId];
+                let _this = this;
+                _this.form.env = _this.envs[envId];
             },
         },
         name: "PagesConfiguratorAppSave",
