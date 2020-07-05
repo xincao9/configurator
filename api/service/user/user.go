@@ -4,7 +4,9 @@ import (
     "configurator/api/component/db"
     "configurator/api/model/message_box"
     "configurator/api/model/user"
+    envService "configurator/api/service/env"
     messageBoxService "configurator/api/service/message_box"
+    userEnvService "configurator/api/service/user_env"
     "crypto/md5"
     "encoding/hex"
     "fmt"
@@ -42,6 +44,7 @@ func (us *userService) Login(u *user.User) error {
     if ou.Password != u.Password {
         return fmt.Errorf("user %s password is incorrect", username)
     }
+    *u = *ou
     return nil
 }
 
@@ -92,6 +95,24 @@ func (us *userService) GetUserByToken(token string) (*user.User, error) {
 
 func (us *userService) GetAllUsers() (users []user.User, err error) {
     err = us.o.Find(&users).Error
+    if err != nil {
+        return
+    }
+    for i, user := range users {
+        ues, err := userEnvService.U.GetUserEnvByUserId(user.Id)
+        if err != nil {
+            return users, err
+        }
+        var envs []string
+        for _, ue := range ues {
+            env, err := envService.E.GetEnvById(ue.EnvId)
+            if err != nil {
+                return users, err
+            }
+            envs = append(envs, env.Name)
+        }
+        users[i].Envs = envs
+    }
     return
 }
 

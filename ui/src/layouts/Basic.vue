@@ -99,7 +99,7 @@
                 let key = event.key;
                 if (key == 'configurator') {
                     this.selectedKeys = 'configurator';
-                    this.openKeys = 'manager';
+                    this.openKeys = 'app';
                     this.siderSelectedKeys = ':pages:configurator:app:list';
                     this.$router.push({
                         path: '/pages/configurator/app/list'

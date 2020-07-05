@@ -26,3 +26,15 @@ func (es *envService) GetAllEnvs() (envs []env.Env, err error) {
     err = es.o.Find(&envs).Error
     return
 }
+
+func (es *envService) GetEnvById(id int64) (*env.Env, error) {
+    var e env.Env
+    err := es.o.Where("`id`=?", id).First(&e).Error
+    if err == gorm.ErrRecordNotFound {
+        return nil, nil
+    }
+    if err != nil {
+        return nil, err
+    }
+    return &e, nil
+}

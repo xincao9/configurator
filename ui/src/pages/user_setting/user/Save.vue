@@ -20,6 +20,17 @@
                     </a-select-option>
                 </a-select>
             </a-form-model-item>
+            <a-form-model-item label="环境">
+                <a-checkbox-group @change="envChange">
+                    <a-row>
+                        <span v-for="env in envs" v-bind:key="env.id">
+                            <a-checkbox :value="env.id">
+                                {{ env.name }}
+                            </a-checkbox>
+                        </span>
+                    </a-row>
+                </a-checkbox-group>
+            </a-form-model-item>
             <a-form-model-item label="密码" prop="password">
                 <a-input v-model="form.password" placeholder="password" type="password"/>
             </a-form-model-item>
@@ -39,6 +50,7 @@
 
     const User = resource('/user', axios);
     const Envs = resource('/envs', axios);
+    const UserEnv = resource('/user_env', axios);
 
     export default {
         mounted() {
@@ -66,10 +78,11 @@
                     }],
                 },
                 envs: null,
+                changeEnvs: null,
             }
         },
         methods: {
-            getEnvs () {
+            getEnvs() {
                 let _this = this;
                 Envs.get().then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
@@ -85,6 +98,18 @@
                         if (valid) {
                             User.post(_this.form).then(function (res) {
                                 if (res.status == 200 && res.data.code == 200) {
+                                    for (let id in _this.changeEnvs) {
+                                        UserEnv.post({
+                                            'user_id': res.data.data.id,
+                                            'env_id': parseInt(_this.changeEnvs[id])
+                                        }).then(function (re) {
+                                            if (re.status == 200 && re.data.code == 200) {
+                                                console.log(re)
+                                            } else {
+                                                console.log(re)
+                                            }
+                                        });
+                                    }
                                     _this.$router.push({
                                         path: "/pages/user_setting/user/list"
                                     });
@@ -95,8 +120,12 @@
                     }
                 );
             },
-            roleChange(value) {
-                this.role = value;
+            roleChange(role) {
+                this.form.role = parseInt(role);
+            },
+            envChange(envs) {
+                this.changeEnvs = envs;
+                console.log(this.changeEnvs);
             },
         },
         name: "PagesUserSettingUserSave",

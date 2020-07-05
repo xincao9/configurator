@@ -6,9 +6,11 @@ import (
     "configurator/api/component/logger"
     _ "configurator/api/component/manager"
     "configurator/api/controller/app"
+    "configurator/api/controller/env"
     "configurator/api/controller/message_box"
     "configurator/api/controller/operation_log"
     "configurator/api/controller/user"
+    "configurator/api/controller/user_env"
     "configurator/api/middleware/authentication"
     "fmt"
     "github.com/gin-gonic/gin"
@@ -48,6 +50,8 @@ func main() {
     authorized := engine.Group("/", authentication.Authentication)
     user.AuthenticationRoute(authorized)
     app.Route(authorized)
+    env.Route(authorized)
+    user_env.Route(authorized)
     message_box.Route(authorized)
     operation_log.Route(authorized)
     engine.Static("/assets", assetsDir)

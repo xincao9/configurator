@@ -3,8 +3,8 @@ package message_box
 import (
     "configurator/api/component/util"
     "configurator/api/constant"
-        "configurator/api/model/user"
     "configurator/api/model/message_box"
+    "configurator/api/model/user"
     messageBoxService "configurator/api/service/message_box"
     "github.com/gin-gonic/gin"
     "net/http"

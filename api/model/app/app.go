@@ -11,7 +11,7 @@ const (
 
 type App struct {
 	db.Model
-	EnvId   int64  `json:"env" gorm:"column:env" binding:"required"`
+	EnvId   int64  `json:"env_id" gorm:"column:env" binding:"required"`
 	Group   string `json:"group" gorm:"column:group" binding:"required"`
 	Project string `json:"project" gorm:"column:project" binding:"required"`
 	Version string `json:"version" gorm:"column:version" binding:"required"`

@@ -1,8 +1,11 @@
 <template>
     <div>
         <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey">
-            <span slot="role" slot-scope="record">
-               {{ roles[record.role] }}
+            <span slot="role" slot-scope="user">
+                {{ roles[user.role] }}
+            </span>
+            <span slot="envs" slot-scope="user">
+                {{ user.envs }}
             </span>
         </a-table>
     </div>
@@ -14,6 +17,7 @@
     import axios from "axios";
 
     const Users = resource("/users", axios);
+
     const columns = [
         {
             title: '主键',
@@ -32,6 +36,12 @@
             key: 'role',
             ellipsis: true,
             scopedSlots: {customRender: 'role'},
+        },
+        {
+            title: '环境',
+            key: 'envs',
+            ellipsis: true,
+            scopedSlots: {customRender: 'envs'},
         },
         {
             title: '创建时间',
