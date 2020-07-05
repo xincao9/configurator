@@ -4,8 +4,8 @@
         <hr/>
         <a-form-model ref="form" :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 10 }" :rules="rules"
                       style="margin-top: 50px;">
-            <a-form-model-item label="环境" prop="env_id">
-                <a-select style="width: 120px" @change="envIdChange">
+            <a-form-model-item label="环境" prop="env">
+                <a-select style="width: 120px" @change="envChange">
                     <a-select-option v-for="ue in userEnvs" v-bind:key="ue.env_id" :value="ue.env_id">
                         {{ envs[ue.env_id] }}
                     </a-select-option>
@@ -60,13 +60,13 @@
                 envs: null,
                 userEnvs: null,
                 form: {
-                    env_id: 0,
+                    env: '',
                     group: '',
                     project: '',
                     version: ''
                 },
                 rules: {
-                    env_id: [{
+                    env: [{
                         required: true,
                         message: '运行环境'
                     }],
@@ -104,8 +104,8 @@
                     }
                 );
             },
-            envIdChange(envId) {
-                this.form.env_id = parseInt(envId);
+            envChange(envId) {
+                this.form.env = this.envs[envId];
             },
         },
         name: "PagesConfiguratorAppSave",
