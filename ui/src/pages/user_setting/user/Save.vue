@@ -7,6 +7,19 @@
             <a-form-model-item label="用户" prop="username">
                 <a-input v-model="form.username" placeholder="xincao9"/>
             </a-form-model-item>
+            <a-form-model-item label="角色" prop="role">
+                <a-select style="width: 120px" default-value="1" @change="roleChange">
+                    <a-select-option value="1">
+                        普通
+                    </a-select-option>
+                    <a-select-option value="2">
+                        经理
+                    </a-select-option>
+                    <a-select-option value="3">
+                        管理
+                    </a-select-option>
+                </a-select>
+            </a-form-model-item>
             <a-form-model-item label="密码" prop="password">
                 <a-input v-model="form.password" placeholder="password" type="password"/>
             </a-form-model-item>
@@ -24,38 +37,56 @@
     import resource from "resource-axios";
     import axios from "axios";
 
-    const Account = resource('/account', axios);
+    const User = resource('/user', axios);
+    const Envs = resource('/envs', axios);
 
     export default {
+        mounted() {
+            this.getEnvs();
+        },
         data() {
             return {
                 form: {
                     username: '',
                     password: '',
+                    role: 1,
                 },
                 rules: {
                     username: [{
                         required: true,
-                        message: '用户名'
+                        message: '用户'
+                    }],
+                    role: [{
+                        required: true,
+                        message: '角色'
                     }],
                     password: [{
                         required: true,
                         message: '密码'
                     }],
-                }
+                },
+                envs: null,
             }
         },
         methods: {
+            getEnvs () {
+                let _this = this;
+                Envs.get().then(function (res) {
+                    if (res.status == 200 && res.data.code == 200) {
+                        _this.envs = res.data.data;
+                    }
+                });
+            },
             onSubmit(e) {
                 e.preventDefault();
                 let _this = this;
                 _this.$refs['form'].validate(
                     valid => {
                         if (valid) {
-                            Account.post(_this.form).then(function (res) {
+                            User.post(_this.form).then(function (res) {
                                 if (res.status == 200 && res.data.code == 200) {
                                     _this.$router.push({
-                                        path: "/pages/user_setting/account/list"
+                                        path: "/pages/user_setting/user/list"
                                     });
                                     _this.$emit('basicsync');
                                 }
@@ -64,8 +95,11 @@
                     }
                 );
             },
+            roleChange(value) {
+                this.role = value;
+            },
         },
-        name: "PagesUserSettingAccountSave",
+        name: "PagesUserSettingUserSave",
         components: {}
     };
 </script>

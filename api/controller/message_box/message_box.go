@@ -3,7 +3,7 @@ package message_box
 import (
     "configurator/api/component/util"
     "configurator/api/constant"
-    "configurator/api/model/account"
+        "configurator/api/model/user"
     "configurator/api/model/message_box"
     messageBoxService "configurator/api/service/message_box"
     "github.com/gin-gonic/gin"
@@ -27,8 +27,8 @@ func Route(engine *gin.RouterGroup) {
     engine.POST("/message_box", save)
     engine.PUT("/message_box", save)
     engine.GET("/message_boxes", func(c *gin.Context) {
-        sa, _ := c.Get(constant.SessionAccount)
-        a, _ := sa.(*account.Account)
+        sa, _ := c.Get(constant.SessionUser)
+        a, _ := sa.(*user.User)
         mbs, err := messageBoxService.M.GetMessageBoxByUsername(a.Username)
         if err != nil {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())

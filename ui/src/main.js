@@ -19,11 +19,14 @@ axios.interceptors.response.use(function (response) {
     if (response.status != 200 || response.data.code == 400) {
         router.push({
             path: "/"
-        });
+        }).then(r => console.log(r));
         return Promise.reject(response);
     }
     return response;
 }, function (error) {
+    router.push({
+        path: "/"
+    }).then(r => console.log(r));
     return Promise.reject(error);
 });
 

@@ -5,10 +5,10 @@ import (
     "configurator/api/component/constant"
     "configurator/api/component/logger"
     _ "configurator/api/component/manager"
-    "configurator/api/controller/account"
     "configurator/api/controller/app"
     "configurator/api/controller/message_box"
     "configurator/api/controller/operation_log"
+    "configurator/api/controller/user"
     "configurator/api/middleware/authentication"
     "fmt"
     "github.com/gin-gonic/gin"
@@ -44,9 +44,9 @@ func main() {
         AllowedHeaders:   []string{"*"},
         AllowCredentials: true,
     }))
-    account.Route(engine)
+    user.Route(engine)
     authorized := engine.Group("/", authentication.Authentication)
-    account.AuthenticationRoute(authorized)
+    user.AuthenticationRoute(authorized)
     app.Route(authorized)
     message_box.Route(authorized)
     operation_log.Route(authorized)

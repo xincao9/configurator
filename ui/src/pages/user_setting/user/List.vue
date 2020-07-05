@@ -1,6 +1,10 @@
 <template>
     <div>
-        <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey"/>
+        <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey">
+            <span slot="role" slot-scope="record">
+               {{ roles[record.role] }}
+            </span>
+        </a-table>
     </div>
 </template>
 
@@ -9,7 +13,7 @@
     import resource from "resource-axios";
     import axios from "axios";
 
-    const Accounts = resource("/accounts", axios);
+    const Users = resource("/users", axios);
     const columns = [
         {
             title: '主键',
@@ -24,6 +28,12 @@
             ellipsis: true,
         },
         {
+            title: '角色',
+            key: 'role',
+            ellipsis: true,
+            scopedSlots: {customRender: 'role'},
+        },
+        {
             title: '创建时间',
             dataIndex: 'created_at',
             key: 'created_at',
@@ -33,10 +43,16 @@
 
     export default {
         mounted() {
-            this.getAccounts();
+            this.getUsers();
         },
         data() {
+            let roles = {
+                1: "普通",
+                2: "经理",
+                3: "管理",
+            };
             return {
+                roles,
                 data: null,
                 columns,
             };
@@ -45,16 +61,16 @@
             getRowKey(record) {
                 return record.id;
             },
-            getAccounts() {
+            getUsers() {
                 let _this = this;
-                Accounts.get().then(function (res) {
+                Users.get().then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
                         _this.data = res.data.data;
                     }
                 })
             },
         },
-        name: "PagesUserSettingAccountList"
+        name: "PagesUserSettingUserList"
     }
 </script>
 <style>

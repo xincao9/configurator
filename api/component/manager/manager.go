@@ -20,7 +20,7 @@ func init() {
     logger.L.Infof("Management listening and serving HTTP on : %s", addr)
     go func() {
         if err := engine.Run(addr); err != nil {
-            logger.L.Fatalf("Fatal error manager: %v\n", err)
+            logger.L.Fatalf("Fatal error app: %v\n", err)
         }
     }()
 }

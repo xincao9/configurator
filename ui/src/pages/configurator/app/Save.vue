@@ -71,7 +71,7 @@
                             App.post(_this.form).then(function (res) {
                                 if (res.status == 200 && res.data.code == 200) {
                                     _this.$router.push({
-                                        path: "/pages/configurator/manager/list"
+                                        path: "/pages/configurator/app/list"
                                     });
                                     _this.$emit('basicsync');
                                 }
@@ -81,7 +81,7 @@
                 );
             },
         },
-        name: "PagesConfiguratorManagerSave",
+        name: "PagesConfiguratorAppSave",
         components: {}
     };
 </script>

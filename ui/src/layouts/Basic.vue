@@ -15,12 +15,12 @@
                         :defaultOpenKeys="[openKeys]" :style="{ height: '100%', borderRight: 0 }" @click="siderClick">
                     <a-sub-menu key="manager">
 						<span slot="title">
-							<a-icon type="file"/>配置管理</span>
-                        <a-menu-item key=":pages:configurator:manager:list">
+							<a-icon type="file"/>应用</span>
+                        <a-menu-item key=":pages:configurator:app:list">
                             <a-icon type="unordered-list"/>
                             列表
                         </a-menu-item>
-                        <a-menu-item key=":pages:configurator:manager:save">
+                        <a-menu-item key=":pages:configurator:app:save">
                             <a-icon type="save"/>
                             新建
                         </a-menu-item>
@@ -41,14 +41,14 @@
                             操作日志
                         </a-menu-item>
                     </a-sub-menu>
-                    <a-sub-menu key="account">
+                    <a-sub-menu key="user">
 						<span slot="title">
 							<a-icon type="user"/>账号管理</span>
-                        <a-menu-item key=":pages:user_setting:account:list">
+                        <a-menu-item key=":pages:user_setting:user:list">
                             <a-icon type="unordered-list"/>
                             列表
                         </a-menu-item>
-                        <a-menu-item key=":pages:user_setting:account:save">
+                        <a-menu-item key=":pages:user_setting:user:save">
                             <a-icon type="save"/>
                             新建
                         </a-menu-item>
@@ -71,16 +71,16 @@
 <script>
     const dict = {
         ['configurator']: '配置中心',
-        ['manager']: '管理',
-        [':pages:configurator:manager:list']: '列表',
-        [':pages:configurator:manager:save']: '保存',
+        ['app']: '应用',
+        [':pages:configurator:app:list']: '列表',
+        [':pages:configurator:app:save']: '新建',
         ['user_setting']: "用户设置",
         ['notification']: "通知管理",
         [':pages:user_setting:notification:message_box']: "消息箱",
         [':pages:user_setting:notification:operation_log']: "操作日志",
-        ['account']: "账号管理",
-        [':pages:user_setting:account:list']: "列表",
-        [':pages:user_setting:account:save']: "新建",
+        ['user']: "账号管理",
+        [':pages:user_setting:user:list']: "列表",
+        [':pages:user_setting:user:save']: "新建",
     }
     export default {
         created() {
@@ -100,9 +100,9 @@
                 if (key == 'configurator') {
                     this.selectedKeys = 'configurator';
                     this.openKeys = 'manager';
-                    this.siderSelectedKeys = ':pages:configurator:manager:list';
+                    this.siderSelectedKeys = ':pages:configurator:app:list';
                     this.$router.push({
-                        path: '/pages/configurator/manager/list'
+                        path: '/pages/configurator/app/list'
                     });
                 } else if (key == 'user_setting') {
                     this.selectedKeys = 'user_setting';

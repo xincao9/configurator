@@ -137,7 +137,7 @@
                 });
             }
         },
-        name: "PagesConfiguratorManagerList",
+        name: "PagesConfiguratorAppList",
         components: {}
     };
 </script>

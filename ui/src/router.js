@@ -3,10 +3,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from './pages/Login.vue';
-import PagesConfiguratorManagerList from './pages/configurator/manager/List.vue';
-import PagesConfiguratorManagerSave from './pages/configurator/manager/Save.vue';
-import PagesUserSettingAccountList from './pages/user_setting/account/List.vue';
-import PagesUserSettingAccountSave from './pages/user_setting/account/Save';
+import PagesConfiguratorAppList from './pages/configurator/app/List.vue';
+import PagesConfiguratorAppSave from './pages/configurator/app/Save.vue';
+import PagesUserSettingUserList from './pages/user_setting/user/List.vue';
+import PagesUserSettingUserSave from './pages/user_setting/user/Save';
 import PagesUserSettingNotificationMessageBox from './pages/user_setting/notification/MessageBox.vue';
 import PagesUserSettingNotificationOperationLog from './pages/user_setting/notification/OperationLog.vue';
 
@@ -22,17 +22,17 @@ const routes = [{
         path: '/pages',
         component: Basic,
         children: [{
-            path: '/pages/configurator/manager/list',
-            component: PagesConfiguratorManagerList
+            path: '/pages/configurator/app/list',
+            component: PagesConfiguratorAppList
         }, {
-            path: '/pages/configurator/manager/save',
-            component: PagesConfiguratorManagerSave
+            path: '/pages/configurator/app/save',
+            component: PagesConfiguratorAppSave
         }, {
-            path: '/pages/user_setting/account/list',
-            component: PagesUserSettingAccountList
+            path: '/pages/user_setting/user/list',
+            component: PagesUserSettingUserList
         }, {
-            path: '/pages/user_setting/account/save',
-            component: PagesUserSettingAccountSave
+            path: '/pages/user_setting/user/save',
+            component: PagesUserSettingUserSave
         }, {
             path: '/pages/user_setting/notification/message_box',
             component: PagesUserSettingNotificationMessageBox
