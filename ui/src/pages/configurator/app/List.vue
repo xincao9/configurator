@@ -8,10 +8,10 @@
             />
         </a-modal>
         <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey">
-            <span slot="properties" slot-scope="record">
-                <a @click="showProperties(record)">编辑</a>
+            <span slot="properties" slot-scope="app">
+                <a @click="showProperties(app)">编辑</a>
                 <a-divider type="vertical"/>
-                <a @click="deleteApp(record)">删除</a>
+                <a @click="deleteApp(app)">删除</a>
             </span>
             <span slot="env_id" slot-scope="app">
                 {{ envs[app.env_id] }}
@@ -95,8 +95,8 @@
             };
         },
         methods: {
-            getRowKey(record) {
-                return record.id;
+            getRowKey(app) {
+                return app.id;
             },
             getApps() {
                 let _this = this;
