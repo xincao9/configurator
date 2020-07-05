@@ -87,6 +87,10 @@ func Route(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
         }
+        if props == "" {
+            util.RenderJSON(c, http.StatusOK, constant.Success)
+            return
+        }
         var m map[string]interface{}
         err = json.Unmarshal([]byte(props), &m)
         if err != nil {

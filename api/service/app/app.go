@@ -79,7 +79,7 @@ func (as *appService) GetPropertiesById(id int64) (string, error) {
     if err != nil {
         return "", err
     }
-    if r.Code != 200 {
+    if r.Code != 200 && r.Code != 404 {
         return "", fmt.Errorf("dkv response code: %d, message: %s\n", r.Code, r.Message)
     }
     return r.KV.V, nil

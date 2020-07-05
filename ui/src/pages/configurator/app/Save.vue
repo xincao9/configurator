@@ -39,7 +39,7 @@
     const Envs = resource('/envs', axios);
 
     export default {
-        created() {
+        mounted() {
             let _this = this;
             UserEnv.get().then(function (res) {
                 if (res.status == 200 && res.data.code == 200) {
@@ -48,6 +48,7 @@
             });
             Envs.get().then(function (res) {
                 if (res.status == 200 && res.data.code == 200) {
+                    _this.envs = {};
                     for (let i in res.data.data) {
                         _this.envs[res.data.data[i].id] = res.data.data[i].name;
                     }
@@ -56,7 +57,7 @@
         },
         data() {
             return {
-                envs: {},
+                envs: null,
                 userEnvs: null,
                 form: {
                     env_id: 0,

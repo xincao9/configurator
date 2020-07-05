@@ -13,6 +13,9 @@
                 <a-divider type="vertical"/>
                 <a @click="deleteApp(record)">删除</a>
             </span>
+            <span slot="env_id" slot-scope="app">
+                {{ envs[app.env_id] }}
+            </span>
         </a-table>
     </div>
 </template>
@@ -21,6 +24,7 @@
     "use strict"
     import resource from "resource-axios";
     import axios from "axios";
+    const Envs = resource('/envs', axios);
 
     const Apps = resource("/apps", axios);
     const App = resource("/app", {
@@ -37,9 +41,9 @@
         },
         {
             title: '环境',
-            dataIndex: 'env',
-            key: 'env',
+            key: 'env_id',
             ellipsis: true,
+            scopedSlots: {customRender: 'env_id'},
         },
         {
             title: '组',
@@ -70,9 +74,19 @@
     export default {
         mounted() {
             this.getApps();
+            let _this = this;
+            Envs.get().then(function (res) {
+                if (res.status == 200 && res.data.code == 200) {
+                    _this.envs = {};
+                    for (let i in res.data.data) {
+                        _this.envs[res.data.data[i].id] = res.data.data[i].name;
+                    }
+                }
+            });
         },
         data() {
             return {
+                envs: null,
                 data: null,
                 columns,
                 visible: false,
