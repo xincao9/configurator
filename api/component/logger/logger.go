@@ -22,7 +22,6 @@ const (
 )
 
 func init() {
-    // 日志设置
     L = logrus.New()
     level, err := logrus.ParseLevel(config.C.GetString(constant.LoggerLevel))
     if err != nil {
