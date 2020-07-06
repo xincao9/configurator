@@ -1,12 +1,24 @@
 <template>
     <a-layout id="layout_basic">
         <a-layout-header class="header">
-            <div class="logo"/>
-            <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]" :style="{ lineHeight: '64px' }"
-                    @click="click">
-                <a-menu-item key="configurator">配置中心</a-menu-item>
-                <a-menu-item key="user_setting">用户设置</a-menu-item>
-            </a-menu>
+            <a-row>
+                <a-col :span="6">
+                    <div class="logo"/>
+                </a-col>
+                <a-col :span="12">
+                    <a-menu theme="dark" mode="horizontal" :defaultSelectedKeys="[selectedKeys]"
+                            :style="{ lineHeight: '64px' }"
+                            @click="click">
+                        <a-menu-item key="configurator">配置中心</a-menu-item>
+                        <a-menu-item key="user_setting">用户设置</a-menu-item>
+                    </a-menu>
+                </a-col>
+                <a-col :span="4">
+                </a-col>
+                <a-col :span="2">
+                    <a @click="deleteSession(user.id)"><strong>注销</strong></a>
+                </a-col>
+            </a-row>
         </a-layout-header>
         <a-layout>
             <a-layout-sider width="200" style="background: #fff">
@@ -41,7 +53,7 @@
                             操作日志
                         </a-menu-item>
                     </a-sub-menu>
-                    <a-sub-menu key="user" v-if="user.role != 1">
+                    <a-sub-menu key="user" v-if="user != null && user.role != 1">
 						<span slot="title">
 							<a-icon type="user"/>账号管理</span>
                         <a-menu-item key=":pages:user_setting:user:list">
@@ -77,6 +89,8 @@
     import axios from "axios";
 
     const User = resource("/user", axios);
+    const Session = resource("/session", axios);
+
     const dict = {
         ['configurator']: '配置中心',
         ['app']: '应用',
@@ -157,6 +171,16 @@
                         this.siderSelectedKeys = ss.join(':');
                     }
                 }
+            },
+            deleteSession: function (userId) {
+                let _this = this;
+                Session.delete(userId).then(function (res) {
+                    if (res.status == 200 && res.data.code == 200) {
+                        _this.$router.push({
+                            path: '/'
+                        });
+                    }
+                });
             }
         }
     };

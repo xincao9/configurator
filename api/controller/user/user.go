@@ -38,7 +38,7 @@ func Route(engine *gin.Engine) {
 }
 
 func AuthenticationRoute(engine *gin.RouterGroup) {
-	engine.DELETE("/session", func(c *gin.Context) {
+	engine.DELETE("/session/:id", func(c *gin.Context) {
 		su, ok := c.Get(constant.SessionUser)
 		if ok == false {
 			util.RenderJSON(c, http.StatusInternalServerError, constant.SystemError)
@@ -51,6 +51,11 @@ func AuthenticationRoute(engine *gin.RouterGroup) {
 			return
 		}
 		u.Expire = time.Now()
+		err = userService.U.Save(u)
+        if err != nil {
+            util.RenderJSON(c, http.StatusInternalServerError, err.Error())
+            return
+        }
 		util.RenderJSON(c, http.StatusOK, constant.Success)
 	})
 	save := func(c *gin.Context) {
