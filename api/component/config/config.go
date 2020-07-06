@@ -19,7 +19,7 @@ var (
 
 func init() {
 	d := flag.Bool("d", false, "run app as a daemon with -d=true")
-	c := flag.String("conf", "prod.yaml", "configure file")
+	c := flag.String("conf", "configurator-api.yaml", "configure file")
 	if flag.Parsed() == false {
 		flag.Parse()
 	}
@@ -46,7 +46,6 @@ func init() {
 	C.SetConfigName(*c)
 	C.SetConfigType("yaml")
 	C.AddConfigPath("./resources/conf")
-	C.AddConfigPath("/tmp/configurator/log")
 	C.AddConfigPath("/usr/local/configurator/conf")
 	C.SetDefault(constant.LoggerDir, "/tmp/configurator/log")
 	C.SetDefault(constant.LoggerLevel, "debug")

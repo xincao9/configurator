@@ -3,7 +3,6 @@ CREATE DATABASE `configurator` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `configurator`;
 
 DROP TABLE IF EXISTS `app`;
-
 CREATE TABLE `app` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `env` char(64) NOT NULL DEFAULT '',
@@ -16,9 +15,7 @@ CREATE TABLE `app` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_idx` (`env`,`group`,`project`,`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `env`;
-
 CREATE TABLE `env` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(32) NOT NULL DEFAULT '',
@@ -28,10 +25,7 @@ CREATE TABLE `env` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS `message_box`;
-
 CREATE TABLE `message_box` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` char(32) NOT NULL DEFAULT '',
@@ -43,10 +37,7 @@ CREATE TABLE `message_box` (
   PRIMARY KEY (`id`),
   KEY `username_idx` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS `operation_log`;
-
 CREATE TABLE `operation_log` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` char(32) NOT NULL DEFAULT '',
@@ -57,9 +48,7 @@ CREATE TABLE `operation_log` (
   PRIMARY KEY (`id`),
   KEY `username_idx` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `user`;
-
 CREATE TABLE `user` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` char(32) NOT NULL DEFAULT '',
@@ -73,10 +62,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_idx` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS `user_env`;
-
 CREATE TABLE `user_env` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(11) unsigned NOT NULL DEFAULT '0',

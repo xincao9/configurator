@@ -13,7 +13,7 @@
                 <a-menu v-if="selectedKeys == 'configurator'" mode="inline" :defaultSelectedKeys="[siderSelectedKeys]"
                         :selectedKeys="[siderSelectedKeys]"
                         :defaultOpenKeys="[openKeys]" :style="{ height: '100%', borderRight: 0 }" @click="siderClick">
-                    <a-sub-menu key="manager">
+                    <a-sub-menu key="app">
 						<span slot="title">
 							<a-icon type="file"/>应用</span>
                         <a-menu-item key=":pages:configurator:app:list">
@@ -64,6 +64,9 @@
                 <a-layout-content :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }">
                     <router-view @basicsync="onSync"></router-view>
                 </a-layout-content>
+                <a-layout-footer style="text-align: center">
+                    configurator ©2020 开源 <a href="https://github.com/xincao9/configurator">github.com/xincao9/configurator</a>
+                </a-layout-footer>
             </a-layout>
         </a-layout>
     </a-layout>
@@ -161,7 +164,7 @@
 
 <style>
     #layout_basic .logo {
-        width: 120px;
+        width: 240px;
         height: 31px;
         background: rgba(255, 255, 255, 0.2);
         margin: 16px 28px 16px 0;
