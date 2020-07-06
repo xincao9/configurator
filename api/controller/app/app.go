@@ -4,6 +4,7 @@ import (
     "configurator/api/component/util"
     "configurator/api/constant"
     "configurator/api/model/app"
+    "configurator/api/model/user"
     appService "configurator/api/service/app"
     "encoding/json"
     "github.com/gin-gonic/gin"
@@ -28,7 +29,13 @@ func Route(engine *gin.RouterGroup) {
     engine.POST("/app", save)
     engine.PUT("/app", save)
     engine.GET("apps", func(c *gin.Context) {
-        apps, err := appService.A.GetAllApps()
+        su, ok := c.Get(constant.SessionUser)
+        if ok == false {
+            util.RenderJSON(c, http.StatusInternalServerError, constant.SystemError)
+            return
+        }
+        u := su.(*user.User)
+        apps, err := appService.A.GetAppByUserId(u.Id)
         if err != nil {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return

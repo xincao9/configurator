@@ -70,6 +70,15 @@ func AuthenticationRoute(engine *gin.RouterGroup) {
         u.Expire = time.Now()
         util.RenderJSON(c, http.StatusOK, constant.Success)
     })
+    engine.GET("/user", func(c *gin.Context) {
+        su, ok := c.Get(constant.SessionUser)
+        if ok == false {
+            util.RenderJSON(c, http.StatusInternalServerError, constant.SystemError)
+            return
+        }
+        u := su.(*user.User)
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, u)
+    })
     engine.GET("/users", func(c *gin.Context) {
         users, err := userService.U.GetAllUsers()
         if err != nil {

@@ -41,7 +41,7 @@
                             操作日志
                         </a-menu-item>
                     </a-sub-menu>
-                    <a-sub-menu key="user">
+                    <a-sub-menu key="user" v-if="user.role != 1">
 						<span slot="title">
 							<a-icon type="user"/>账号管理</span>
                         <a-menu-item key=":pages:user_setting:user:list">
@@ -69,6 +69,11 @@
     </a-layout>
 </template>
 <script>
+    "use strict"
+    import resource from "resource-axios";
+    import axios from "axios";
+
+    const User = resource("/user", axios);
     const dict = {
         ['configurator']: '配置中心',
         ['app']: '应用',
@@ -84,10 +89,17 @@
     }
     export default {
         created() {
+            let _this = this;
             this.onSync();
+            User.get().then(function (res) {
+                if (res.status == 200 && res.data.code == 200) {
+                    _this.user = res.data.data;
+                }
+            });
         },
         data() {
             return {
+                user: null,
                 selectedKeys: null,
                 openKeys: null,
                 siderSelectedKeys: null,

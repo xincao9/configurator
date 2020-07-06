@@ -12,10 +12,10 @@
                     <a-select-option value="1">
                         普通
                     </a-select-option>
-                    <a-select-option value="2">
+                    <a-select-option value="2" v-if="user != null && user.role == 3">
                         经理
                     </a-select-option>
-                    <a-select-option value="3">
+                    <a-select-option value="3" v-if="user != null && user.role == 3">
                         管理
                     </a-select-option>
                 </a-select>
@@ -23,9 +23,9 @@
             <a-form-model-item label="环境">
                 <a-checkbox-group @change="envChange">
                     <a-row>
-                        <span v-for="env in envs" v-bind:key="env.id">
-                            <a-checkbox :value="env.id">
-                                {{ env.name }}
+                        <span v-for="userEnv in userEnvs" v-bind:key="userEnv.id">
+                            <a-checkbox :value="userEnv.env_id">
+                                {{ envs[userEnv.env_id] }}
                             </a-checkbox>
                         </span>
                     </a-row>
@@ -53,11 +53,38 @@
     const UserEnv = resource('/user_env', axios);
 
     export default {
-        mounted() {
-            this.getEnvs();
+        created() {
+            let _this = this;
+            User.get().then(function (res1) {
+                if (res1.status == 200 && res1.data.code == 200) {
+                    if (_this.user == null) {
+                        _this.user = res1.data.data;
+                    }
+                    Envs.get().then(function (res2) {
+                        if (res2.status == 200 && res2.data.code == 200) {
+                            if (_this.envs == null) {
+                                _this.envs = {};
+                                for (let i in res2.data.data) {
+                                    _this.envs[res2.data.data[i].id] = res2.data.data[i].name;
+                                }
+                            }
+                            UserEnv.get().then(function (res3) {
+                                if (res3.status == 200 && res3.data.code == 200) {
+                                    if (_this.userEnvs == null) {
+                                        _this.userEnvs = res3.data.data;
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         },
         data() {
             return {
+                user: null,
+                envs: null,
+                userEnvs: null,
                 form: {
                     username: '',
                     password: '',
@@ -77,19 +104,10 @@
                         message: '密码'
                     }],
                 },
-                envs: null,
                 changeEnvs: null,
             }
         },
         methods: {
-            getEnvs() {
-                let _this = this;
-                Envs.get().then(function (res) {
-                    if (res.status == 200 && res.data.code == 200) {
-                        _this.envs = res.data.data;
-                    }
-                });
-            },
             onSubmit(e) {
                 e.preventDefault();
                 let _this = this;
@@ -102,12 +120,6 @@
                                         UserEnv.post({
                                             'user_id': res.data.data.id,
                                             'env_id': parseInt(_this.changeEnvs[id])
-                                        }).then(function (re) {
-                                            if (re.status == 200 && re.data.code == 200) {
-                                                console.log(re)
-                                            } else {
-                                                console.log(re)
-                                            }
                                         });
                                     }
                                     _this.$router.push({
@@ -125,7 +137,6 @@
             },
             envChange(envs) {
                 this.changeEnvs = envs;
-                console.log(this.changeEnvs);
             },
         },
         name: "PagesUserSettingUserSave",

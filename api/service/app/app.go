@@ -4,6 +4,8 @@ import (
     "configurator/api/component/db"
     "configurator/api/component/logger"
     "configurator/api/model/app"
+    envService "configurator/api/service/env"
+    userEnvService "configurator/api/service/user_env"
     "fmt"
     "github.com/jinzhu/gorm"
     "github.com/xincao9/dkv/client"
@@ -61,8 +63,38 @@ func (as *appService) GetAppById(id int64) (*app.App, error) {
     return &a, nil
 }
 
+func (as *appService) GetAppByEnv(env string) (apps []app.App, err error) {
+    err = as.o.Where("`env`=?", env).Find(&apps).Error
+    if err == gorm.ErrRecordNotFound {
+        return
+    }
+    if err != nil {
+        return
+    }
+    return
+}
+
 func (as *appService) GetAllApps() (apps []app.App, err error) {
     err = as.o.Find(&apps).Error
+    return
+}
+
+func (as *appService) GetAppByUserId(userId int64) (apps []app.App, err error) {
+    userEnvs, err := userEnvService.U.GetUserEnvByUserId(userId)
+    if err != nil {
+        return
+    }
+    for _, userEnv := range userEnvs {
+        env, err := envService.E.GetEnvById(userEnv.EnvId)
+        if err != nil {
+            return apps, err
+        }
+        as, err := as.GetAppByEnv(env.Name)
+        if err != nil {
+            return apps, err
+        }
+        apps = append(apps, as...)
+    }
     return
 }
 

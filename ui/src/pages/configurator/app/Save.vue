@@ -5,7 +5,7 @@
         <a-form-model ref="form" :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 10 }" :rules="rules"
                       style="margin-top: 50px;">
             <a-form-model-item label="环境" prop="env">
-                <a-select style="width: 120px" @change="envChange">
+                <a-select style="width: 120px" @change="envChange" default-value="点击选择">
                     <a-select-option v-for="ue in userEnvs" v-bind:key="ue.env_id" :value="ue.env_id">
                         {{ envs[ue.env_id] }}
                     </a-select-option>
@@ -35,30 +35,34 @@
     import axios from "axios";
 
     const App = resource('/app', axios);
-    const UserEnv = resource('/user_env', axios);
     const Envs = resource('/envs', axios);
+    const UserEnv = resource('/user_env', axios);
 
     export default {
-        mounted() {
+        created() {
             let _this = this;
-            UserEnv.get().then(function (res) {
-                if (res.status == 200 && res.data.code == 200) {
-                    _this.userEnvs = res.data.data;
-                }
-            });
-            Envs.get().then(function (res) {
-                if (res.status == 200 && res.data.code == 200) {
-                    _this.envs = {};
-                    for (let i in res.data.data) {
-                        _this.envs[res.data.data[i].id] = res.data.data[i].name;
+            Envs.get().then(function (res1) {
+                if (res1.status == 200 && res1.data.code == 200) {
+                    if (_this.envs == null) {
+                        _this.envs = {};
+                        for (let i in res1.data.data) {
+                            _this.envs[res1.data.data[i].id] = res1.data.data[i].name;
+                        }
                     }
+                    UserEnv.get().then(function (res2) {
+                        if (res2.status == 200 && res2.data.code == 200) {
+                            if (_this.userEnvs == null) {
+                                _this.userEnvs = res2.data.data;
+                            }
+                        }
+                    });
                 }
             });
         },
         data() {
             return {
-                envs: null,
                 userEnvs: null,
+                envs: null,
                 form: {
                     env: '',
                     group: '',

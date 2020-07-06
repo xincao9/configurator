@@ -30,12 +30,6 @@
             ellipsis: true,
         },
         {
-            title: '状态',
-            dataIndex: 'status',
-            key: 'status',
-            ellipsis: true,
-        },
-        {
             title: '创建时间',
             dataIndex: 'created_at',
             key: 'created_at',

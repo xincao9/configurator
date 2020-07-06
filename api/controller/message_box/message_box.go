@@ -27,9 +27,9 @@ func Route(engine *gin.RouterGroup) {
     engine.POST("/message_box", save)
     engine.PUT("/message_box", save)
     engine.GET("/message_boxes", func(c *gin.Context) {
-        sa, _ := c.Get(constant.SessionUser)
-        a, _ := sa.(*user.User)
-        mbs, err := messageBoxService.M.GetMessageBoxByUsername(a.Username)
+        su, _ := c.Get(constant.SessionUser)
+        u, _ := su.(*user.User)
+        mbs, err := messageBoxService.M.GetMessageBoxByUsername(u.Username)
         if err != nil {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return
