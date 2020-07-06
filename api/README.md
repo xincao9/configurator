@@ -32,13 +32,13 @@ sudo make install
 
 **configurator-api.yaml**
 
-```
+```yaml
 db:
     datasourcename: root:asdf@tcp(localhost:3306)/configurator?charset=utf8&parseTime=true
 dkv:
     address: localhost:9090
 logger:
-    dir: "/tmp/logs"
+    dir: /usr/local/configurator/log
     level: debug
 manager:
     server:
@@ -48,6 +48,12 @@ server:
         accesscontrolalloworigin: http://localhost:8081
     mode: debug
     port: 8080
+assets:
+    root: /usr/local/configurator/assets
+    js: /usr/local/configurator/assets/js
+    css: /usr/local/configurator/assets/css
+    img: /usr/local/configurator/assets/img
+
 ```
 
 **知识**
