@@ -7,6 +7,9 @@
             <span slot="envs" slot-scope="user">
                 {{ user.envs }}
             </span>
+            <span slot="option" slot-scope="user">
+                <a @click="edit(user)">编辑</a>
+            </span>
         </a-table>
     </div>
 </template>
@@ -44,6 +47,12 @@
             scopedSlots: {customRender: 'envs'},
         },
         {
+            title: '操作',
+            key: 'option',
+            ellipsis: true,
+            scopedSlots: {customRender: 'option'},
+        },
+        {
             title: '创建时间',
             dataIndex: 'created_at',
             key: 'created_at',
@@ -79,6 +88,20 @@
                     }
                 })
             },
+            edit(user) {
+                let _this = this;
+                if (user == null) {
+                    return;
+                }
+                let id = user.id;
+                _this.$router.push({
+                    path: "/pages/user_setting/user/save",
+                    query: {
+                        "id": id
+                    }
+                });
+                _this.$emit('basicsync');
+            }
         },
         name: "PagesUserSettingUserList"
     }

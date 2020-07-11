@@ -26,13 +26,22 @@ type userEnvService struct {
 
 func (ues *userEnvService) Save(ue *user_env.UserEnv) error {
 	if ue.Id <= 0 {
+	    userEnvs, err := ues.GetUserEnvsByUserId(ue.UserId)
+	    if err != nil {
+	        return err
+        }
+        for _, userEnv := range userEnvs {
+            if userEnv.UserId == ue.UserId && userEnv.EnvId == ue.EnvId {
+                return nil
+            }
+        }
 		return ues.o.Save(ue).Error
 	}
-	oa, err := ues.GetUserEnvById(ue.Id) // 修改
+	oue, err := ues.GetUserEnvById(ue.Id) // 修改
 	if err != nil {
 		return err
 	}
-	if oa == nil {
+	if oue == nil {
 		return gorm.ErrRecordNotFound
 	}
 	return ues.o.Save(ue).Error

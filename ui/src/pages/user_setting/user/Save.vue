@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>新建</h1>
+        <h1 v-if="form.id > 0">修改</h1>
+        <h1 v-else>新建</h1>
         <hr/>
         <a-form-model ref="form" :model="form" :label-col="{ span: 4 }" :wrapper-col="{ span: 10 }" :rules="rules"
                       style="margin-top: 50px;">
@@ -55,6 +56,20 @@
     export default {
         created() {
             let _this = this;
+            let id = 0;
+            if (_this.$route.query != null && _this.$route.query.id != null) {
+                id = _this.$route.query.id;
+            }
+            if (id > 0) {
+                User.get(id).then(function (res) {
+                    if (res.status == 200 && res.data.code == 200) {
+                        _this.form.id = id;
+                        _this.form.username = res.data.data.username;
+                        _this.form.password = res.data.data.password;
+                        _this.form.role = res.data.data.role;
+                    }
+                });
+            }
             User.get().then(function (res1) {
                 if (res1.status == 200 && res1.data.code == 200) {
                     if (_this.user == null) {
@@ -86,6 +101,7 @@
                 envs: null,
                 userEnvs: null,
                 form: {
+                    id: 0,
                     username: '',
                     password: '',
                     role: 1,

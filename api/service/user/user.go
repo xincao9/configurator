@@ -93,6 +93,18 @@ func (us *userService) GetUserByToken(token string) (*user.User, error) {
 	return u, nil
 }
 
+func (us *userService) GetUserById(id int64) (*user.User, error) {
+    u := &user.User{}
+    err := us.o.Where("`id`=?", id).First(u).Error
+    if err == gorm.ErrRecordNotFound {
+        return nil, nil
+    }
+    if err != nil {
+        return nil, err
+    }
+    return u, nil
+}
+
 func (us *userService) GetAllUsers() ([]user.User, error) {
 	var users []user.User
 	err := us.o.Find(&users).Error

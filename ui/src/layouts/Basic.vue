@@ -62,7 +62,7 @@
                         </a-menu-item>
                         <a-menu-item key=":pages:user_setting:user:save">
                             <a-icon type="save"/>
-                            新建
+                            保存
                         </a-menu-item>
                     </a-sub-menu>
                 </a-menu>
@@ -102,7 +102,7 @@
         [':pages:user_setting:notification:operation_log']: "操作日志",
         ['user']: "账号管理",
         [':pages:user_setting:user:list']: "列表",
-        [':pages:user_setting:user:save']: "新建",
+        [':pages:user_setting:user:save']: "保存",
     }
     export default {
         created() {
