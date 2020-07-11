@@ -7,7 +7,7 @@
                 :auto-size="{ minRows: 10, maxRows: 50 }"
             />
         </a-modal>
-        <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey">
+        <a-table :locale="{emptyText: '暂无数据'}" :columns="columns" :dataSource="data" :rowKey="getRowKey">
             <span slot="properties" slot-scope="app">
                 <a @click="showProperties(app)">编辑</a>
                 <a-divider type="vertical"/>

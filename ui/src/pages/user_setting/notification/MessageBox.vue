@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey"/>
+        <a-table :locale="{emptyText: '暂无数据'}" :columns="columns" :dataSource="data" :rowKey="getRowKey"/>
     </div>
 </template>
 

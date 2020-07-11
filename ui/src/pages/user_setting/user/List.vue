@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-table :columns="columns" :dataSource="data" :rowKey="getRowKey">
+        <a-table :locale="{emptyText: '暂无数据'}" :columns="columns" :dataSource="data" :rowKey="getRowKey">
             <span slot="role" slot-scope="user">
                 {{ roles[user.role] }}
             </span>
