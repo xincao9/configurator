@@ -9,7 +9,7 @@
                 <a-input v-model="form.username" placeholder="xincao9"/>
             </a-form-model-item>
             <a-form-model-item label="角色" prop="role">
-                <a-select style="width: 120px" default-value="1" @change="roleChange">
+                <a-select style="width: 120px" v-model="defaultRole" @change="roleChange">
                     <a-select-option value="1">
                         普通
                     </a-select-option>
@@ -22,7 +22,7 @@
                 </a-select>
             </a-form-model-item>
             <a-form-model-item label="环境">
-                <a-checkbox-group @change="envChange">
+                <a-checkbox-group @change="envChange" v-model="changeEnvs">
                     <a-row>
                         <span v-for="userEnv in userEnvs" v-bind:key="userEnv.id">
                             <a-checkbox :value="userEnv.env_id">
@@ -51,7 +51,15 @@
 
     const User = resource('/user', axios);
     const Envs = resource('/envs', axios);
-    const UserEnv = resource('/user_env', axios);
+    const UserEnv = resource('/user_env', {
+        getUserEnvsByUserId: (userId) => axios.get(`/user_env/user_id/${userId}`)
+    }, axios);
+
+    const roles = {
+        1: "普通",
+        2: "经理",
+        3: "管理"
+    };
 
     export default {
         created() {
@@ -61,12 +69,20 @@
                 id = _this.$route.query.id;
             }
             if (id > 0) {
-                User.get(id).then(function (res) {
-                    if (res.status == 200 && res.data.code == 200) {
+                User.get(id).then(function (res1) {
+                    if (res1.status == 200 && res1.data.code == 200) {
                         _this.form.id = id;
-                        _this.form.username = res.data.data.username;
-                        _this.form.password = res.data.data.password;
-                        _this.form.role = res.data.data.role;
+                        _this.form.username = res1.data.data.username;
+                        _this.form.password = res1.data.data.password;
+                        _this.form.role = res1.data.data.role;
+                        UserEnv.getUserEnvsByUserId(id).then(function (res2) {
+                            if (res2.status == 200 && res2.data.code == 200) {
+                                for (let i in res2.data.data) {
+                                    _this.changeEnvs.push(res2.data.data[i].env_id);
+                                }
+                            }
+                        });
+                        _this.defaultRole = roles[_this.form.role];
                     }
                 });
             }
@@ -97,6 +113,7 @@
         },
         data() {
             return {
+                defaultRole: '普通',
                 user: null,
                 envs: null,
                 userEnvs: null,
@@ -120,7 +137,7 @@
                         message: '密码'
                     }],
                 },
-                changeEnvs: null,
+                changeEnvs: [],
             }
         },
         methods: {

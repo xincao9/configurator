@@ -8,6 +8,7 @@ import (
 	userEnvService "configurator/api/service/user_env"
 	"github.com/gin-gonic/gin"
 	"net/http"
+    "strconv"
 )
 
 func Route(engine *gin.RouterGroup) {
@@ -68,4 +69,22 @@ func Route(engine *gin.RouterGroup) {
 		}
 		util.RenderJSONDetail(c, http.StatusOK, constant.Success, userEnvs)
 	})
+    engine.GET("/user_env/user_id/:user_id", func(c *gin.Context) {
+        n := c.Param("user_id")
+        if n == "" {
+            util.RenderJSON(c, http.StatusBadRequest, "user_id is required")
+            return
+        }
+        userId, err := strconv.ParseInt(n, 10, 64)
+        if err != nil {
+            util.RenderJSON(c, http.StatusBadRequest, err.Error())
+            return
+        }
+        userEnvs, err := userEnvService.U.GetUserEnvsByUserId(userId)
+        if err != nil {
+            util.RenderJSON(c, http.StatusInternalServerError, err.Error())
+            return
+        }
+        util.RenderJSONDetail(c, http.StatusOK, constant.Success, userEnvs)
+    })
 }
