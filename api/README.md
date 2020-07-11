@@ -34,7 +34,7 @@ sudo make install
 
 ```yaml
 db:
-    datasourcename: root:asdf@tcp(localhost:3306)/configurator?charset=utf8&parseTime=true
+    datasource: root:asdf@tcp(localhost:3306)/configurator?charset=utf8&parseTime=true
 dkv:
     address: localhost:9090
 logger:

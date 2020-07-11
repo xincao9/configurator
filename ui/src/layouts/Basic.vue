@@ -173,11 +173,22 @@
                 }
             },
             deleteSession: function (userId) {
+                if (userId <= 0) {
+                    return;
+                }
                 let _this = this;
-                Session.delete(userId).then(function (res) {
-                    if (res.status == 200 && res.data.code == 200) {
-                        _this.$router.push({
-                            path: '/'
+                _this.$confirm({
+                    title: '提醒',
+                    content: '确认注销吗?',
+                    okText: '确认',
+                    cancelText: '取消',
+                    onOk: function () {
+                        Session.delete(userId).then(function (res) {
+                            if (res.status == 200 && res.data.code == 200) {
+                                _this.$router.push({
+                                    path: '/'
+                                });
+                            }
                         });
                     }
                 });

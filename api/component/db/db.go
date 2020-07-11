@@ -15,7 +15,7 @@ var (
 
 func init() {
     var err error
-    O, err = gorm.Open("mysql", config.C.GetString(constant.DBDataSourceName))
+    O, err = gorm.Open("mysql", config.C.GetString(constant.DBDataSource))
     if err != nil {
         logger.L.Fatalf("Fatal error db: %v\n", err)
     }
