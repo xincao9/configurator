@@ -37,7 +37,7 @@ curl -X PUT -H 'content-type:application/json' 'http://localhost:9090/kv' -d '{"
 go get github.com/xincao9/configurator
 ```
 
-**设置系统环境变量**
+**可选配置方式1：设置系统环境变量**
 
 ```
 export env="TEST" // 环境
@@ -46,6 +46,17 @@ export project="USER-SERVICE" // 项目
 export version="v1.0" // 版本
 export master="localhost:9090" // dkv 的master地址
 export slaves="" // dkv 的slaves地址，host1:port1,host2:port2
+```
+
+**可选配置方式2：$HOME/.env 文件进行配置**
+
+```
+env="TEST" // 环境
+group="BASE" // 业务组
+project="USER-SERVICE" // 项目
+version="v1.0" // 版本
+master="localhost:9090" // dkv 的master地址
+slaves="" // dkv 的slaves地址，host1:port1,host2:port2
 ```
 
 **读取属性**

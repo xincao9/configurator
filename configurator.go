@@ -1,14 +1,13 @@
 package configurator
 
 import (
-	"encoding/json"
-	"github.com/fsnotify/fsnotify"
-	"github.com/spf13/viper"
-	"github.com/xincao9/configurator/info"
-	"io"
-	"log"
-	"net/http"
-	"time"
+    "encoding/json"
+    "github.com/fsnotify/fsnotify"
+    "github.com/spf13/viper"
+    "io"
+    "log"
+    "net/http"
+    "time"
 )
 
 var (
@@ -21,6 +20,7 @@ const (
 )
 
 func init() {
+    startInfo()
 	var err error
 	C, err = new()
 	if err != nil {
@@ -30,9 +30,9 @@ func init() {
 
 func new() (*configurator, error) {
 	v := viper.New()
-	v.SetConfigName(info.FN)
-	v.SetConfigType(info.Ext)
-	v.AddConfigPath(info.I.Path)
+	v.SetConfigName(FN)
+	v.SetConfigType(Ext)
+	v.AddConfigPath(I.Path)
 	err := v.ReadInConfig()
 	if err != nil {
 		return nil, err
@@ -126,7 +126,7 @@ func (c *configurator) AllSettings() map[string]interface{} {
 
 func AllSettings(w http.ResponseWriter, _ *http.Request) {
 	m := make(map[string]interface{})
-	m[infoKey] = info.I.Map()
+	m[infoKey] = I.Map()
 	m[propertiesKey] = C.AllSettings()
 	b, err := json.MarshalIndent(m, "", "\t")
 	if err != nil {

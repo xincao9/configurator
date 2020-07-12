@@ -1,14 +1,16 @@
-package info
+package configurator
 
 import (
-	"fmt"
-	"github.com/xincao9/dkv/client"
-	"io/ioutil"
-	"log"
-	"os"
-	"path/filepath"
-	"strings"
-	"time"
+    "fmt"
+    "github.com/subosito/gotenv"
+    "github.com/xincao9/dkv/client"
+    "io/ioutil"
+    "log"
+    "os"
+    "path/filepath"
+    "strings"
+    "sync"
+    "time"
 )
 
 const (
@@ -27,13 +29,27 @@ const (
 
 var (
 	I *info
+    once = &sync.Once{}
 )
 
-func init() {
+func init () {
+    startInfo()
+}
+
+func startInfo () {
+    once.Do(initInfo)
+}
+
+func initInfo() {
+    var err error
+    err = gotenv.Load(filepath.Join(os.Getenv(path), ".env"))
+    if err != nil {
+        log.Fatalln(err)
+        log.Printf("warning file '%s' not found", filepath.Join(os.Getenv(path), ".env"))
+    }
 	if I != nil {
 		return
 	}
-	var err error
 	I, err = newInfo()
 	if err != nil {
 		log.Fatalf("Fatal error configurator newInfo : %v\n", err)
