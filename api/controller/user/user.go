@@ -134,7 +134,13 @@ func AuthenticationRoute(engine *gin.RouterGroup) {
             util.RenderJSON(c, http.StatusOK, constant.Success)
             return
         }
-        users, err := userService.U.GetAllUsers()
+        var users []user.User
+        var err error
+        if u.Role == constant.RoleManager {
+            users, err = userService.U.GetUsersByRole(constant.RoleCommon)
+        } else {
+            users, err = userService.U.GetAllUsers()
+        }
         if err != nil {
             util.RenderJSON(c, http.StatusInternalServerError, err.Error())
             return

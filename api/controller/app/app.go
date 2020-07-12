@@ -48,6 +48,7 @@ func Route(engine *gin.RouterGroup) {
 			}
 			if e.Name == a.Env {
 				ok = true
+				break
 			}
 		}
 		if ok == false {
@@ -120,6 +121,7 @@ func Route(engine *gin.RouterGroup) {
 			}
 			if e.Name == a.Env {
 				ok = true
+				break
 			}
 		}
 		if ok == false {
@@ -171,6 +173,7 @@ func Route(engine *gin.RouterGroup) {
 			}
 			if e.Name == a.Env {
 				ok = true
+				break
 			}
 		}
 		if ok == false {
@@ -227,6 +230,7 @@ func Route(engine *gin.RouterGroup) {
 			}
 			if e.Name == a.Env {
 				ok = true
+				break
 			}
 		}
 		if ok == false {
@@ -298,6 +302,7 @@ func Route(engine *gin.RouterGroup) {
 			}
 			if e.Name == a.Env {
 				ok = true
+				break
 			}
 		}
 		if ok == false {

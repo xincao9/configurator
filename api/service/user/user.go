@@ -78,6 +78,25 @@ func (us *userService) GetUserByUsername(username string) (*user.User, error) {
 	if err != nil {
 		return nil, err
 	}
+    ues, err := userEnvService.U.GetUserEnvsByUserId(u.Id)
+    if err != nil {
+        return nil, err
+    }
+    if ues == nil {
+        return u, nil
+    }
+    var envs []string
+    for _, ue := range ues {
+        env, err := envService.E.GetEnvById(ue.EnvId)
+        if err != nil {
+            return nil, err
+        }
+        if env == nil {
+            continue
+        }
+        envs = append(envs, env.Name)
+    }
+    u.Envs = envs
 	return u, nil
 }
 
@@ -90,6 +109,25 @@ func (us *userService) GetUserByToken(token string) (*user.User, error) {
 	if err != nil {
 		return nil, err
 	}
+    ues, err := userEnvService.U.GetUserEnvsByUserId(u.Id)
+    if err != nil {
+        return nil, err
+    }
+    if ues == nil {
+        return u, nil
+    }
+    var envs []string
+    for _, ue := range ues {
+        env, err := envService.E.GetEnvById(ue.EnvId)
+        if err != nil {
+            return nil, err
+        }
+        if env == nil {
+            continue
+        }
+        envs = append(envs, env.Name)
+    }
+    u.Envs = envs
 	return u, nil
 }
 
@@ -102,6 +140,25 @@ func (us *userService) GetUserById(id int64) (*user.User, error) {
     if err != nil {
         return nil, err
     }
+    ues, err := userEnvService.U.GetUserEnvsByUserId(id)
+    if err != nil {
+        return nil, err
+    }
+    if ues == nil {
+        return u, nil
+    }
+    var envs []string
+    for _, ue := range ues {
+        env, err := envService.E.GetEnvById(ue.EnvId)
+        if err != nil {
+            return nil, err
+        }
+        if env == nil {
+            continue
+        }
+        envs = append(envs, env.Name)
+    }
+    u.Envs = envs
     return u, nil
 }
 
@@ -136,6 +193,39 @@ func (us *userService) GetAllUsers() ([]user.User, error) {
 		users[i].Envs = envs
 	}
 	return users, nil
+}
+
+func (us *userService) GetUsersByRole(role int) ([]user.User, error) {
+    var users []user.User
+    err := us.o.Where("`role`=?", role).Find(&users).Error
+    if err == gorm.ErrRecordNotFound {
+        return nil, nil
+    }
+    if err != nil {
+        return nil, err
+    }
+    for i, user := range users {
+        ues, err := userEnvService.U.GetUserEnvsByUserId(user.Id)
+        if err != nil {
+            return nil, err
+        }
+        if ues == nil {
+            continue
+        }
+        var envs []string
+        for _, ue := range ues {
+            env, err := envService.E.GetEnvById(ue.EnvId)
+            if err != nil {
+                return nil, err
+            }
+            if env == nil {
+                continue
+            }
+            envs = append(envs, env.Name)
+        }
+        users[i].Envs = envs
+    }
+    return users, nil
 }
 
 func (us *userService) Delete(id int64) error {

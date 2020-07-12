@@ -91,15 +91,15 @@ func (as *appService) GetAllApps() ([]app.App, error) {
 
 func (as *appService) GetAppsByUserId(userId int64) ([]app.App, error) {
 	var apps []app.App
-	userEnvs, err := userEnvService.U.GetUserEnvsByUserId(userId)
+	ues, err := userEnvService.U.GetUserEnvsByUserId(userId)
 	if err != nil {
 		return nil, err
 	}
-	if userEnvs == nil {
+	if len(ues) <= 0 {
 		return nil, nil
 	}
-	for _, userEnv := range userEnvs {
-		env, err := envService.E.GetEnvById(userEnv.EnvId)
+	for _, ue := range ues {
+		env, err := envService.E.GetEnvById(ue.EnvId)
 		if err != nil {
 			return nil, err
 		}

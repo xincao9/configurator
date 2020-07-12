@@ -15,7 +15,12 @@
                 </a-col>
                 <a-col :span="4">
                 </a-col>
-                <a-col :span="2">
+                <a-col :span="1">
+                    <a-avatar>
+                        {{ user.username }}
+                    </a-avatar>
+                </a-col>
+                <a-col :span="1">
                     <a @click="deleteSession(user.id)"><strong>注销</strong></a>
                 </a-col>
             </a-row>

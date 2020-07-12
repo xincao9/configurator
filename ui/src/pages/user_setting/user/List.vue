@@ -5,7 +5,9 @@
                 {{ roles[user.role] }}
             </span>
             <span slot="envs" slot-scope="user">
-                {{ user.envs }}
+                <a-avatar v-for="env in user.envs" v-bind:key="env">
+                    {{ env }}
+                </a-avatar>
             </span>
             <span slot="option" slot-scope="user">
                 <a @click="edit(user)">编辑</a>
