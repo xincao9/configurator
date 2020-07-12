@@ -70,6 +70,16 @@ func Route(engine *gin.RouterGroup) {
 		util.RenderJSONDetail(c, http.StatusOK, constant.Success, userEnvs)
 	})
     engine.GET("/user_env/user_id/:user_id", func(c *gin.Context) {
+		su, ok := c.Get(constant.SessionUser)
+		if ok == false {
+			util.RenderJSON(c, http.StatusInternalServerError, constant.SystemError)
+			return
+		}
+		u := su.(*user.User)
+		if u.Role == constant.RoleCommon {
+			util.RenderJSON(c, http.StatusOK, constant.Success)
+			return
+		}
         n := c.Param("user_id")
         if n == "" {
             util.RenderJSON(c, http.StatusBadRequest, "user_id is required")
