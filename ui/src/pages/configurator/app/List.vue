@@ -8,6 +8,9 @@
             />
         </a-modal>
         <a-table :locale="{emptyText: '暂无数据'}" :columns="columns" :dataSource="data" :rowKey="getRowKey">
+            <span slot="id" slot-scope="app">
+                <a @click="edit(app)">{{ app.id }}</a>
+            </span>
             <span slot="properties" slot-scope="app">
                 <a @click="showProperties(app)">编辑</a>
                 <a-divider type="vertical"/>
@@ -31,9 +34,9 @@
     const columns = [
         {
             title: '主键',
-            dataIndex: 'id',
             key: 'id',
             ellipsis: true,
+            scopedSlots: {customRender: 'id'},
         },
         {
             title: '环境',
@@ -135,6 +138,20 @@
                         });
                     }
                 });
+            },
+            edit(app) {
+                let _this = this;
+                if (app == null) {
+                    return;
+                }
+                let id = app.id;
+                _this.$router.push({
+                    path: "/pages/configurator/app/save",
+                    query: {
+                        "id": id
+                    }
+                });
+                _this.$emit('basicsync');
             }
         },
         name: "PagesConfiguratorAppList",

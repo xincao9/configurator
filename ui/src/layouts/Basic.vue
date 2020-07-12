@@ -34,7 +34,7 @@
                         </a-menu-item>
                         <a-menu-item key=":pages:configurator:app:save">
                             <a-icon type="save"/>
-                            新建
+                            保存
                         </a-menu-item>
                     </a-sub-menu>
                 </a-menu>
@@ -95,7 +95,7 @@
         ['configurator']: '配置中心',
         ['app']: '应用',
         [':pages:configurator:app:list']: '列表',
-        [':pages:configurator:app:save']: '新建',
+        [':pages:configurator:app:save']: '保存',
         ['user_setting']: "用户设置",
         ['notification']: "通知管理",
         [':pages:user_setting:notification:message_box']: "消息箱",
