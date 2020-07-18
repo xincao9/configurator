@@ -41,15 +41,15 @@ func startInfo () {
 }
 
 func initInfo() {
+    if I != nil {
+        return
+    }
     var err error
     err = gotenv.Load(filepath.Join(os.Getenv(path), ".env"))
     if err != nil {
-        log.Fatalln(err)
         log.Printf("warning file '%s' not found", filepath.Join(os.Getenv(path), ".env"))
+        log.Fatalln(err)
     }
-	if I != nil {
-		return
-	}
 	I, err = newInfo()
 	if err != nil {
 		log.Fatalf("Fatal error configurator newInfo : %v\n", err)
