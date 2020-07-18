@@ -30,7 +30,7 @@ github.com/spf13/pflag
 github.com/spf13/viper
 # github.com/subosito/gotenv v1.2.0
 github.com/subosito/gotenv
-# github.com/xincao9/dkv/client v0.0.0-20200703023819-7e1b8df4b954
+# github.com/xincao9/dkv/client v0.0.0-20200703030103-a5999e09b1a8
 github.com/xincao9/dkv/client
 # golang.org/x/sys v0.0.0-20200116001909-b77594299b42
 golang.org/x/sys/unix
